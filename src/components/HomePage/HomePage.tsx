@@ -73,19 +73,25 @@ const HomePage: React.FC = () => {
 
   return (
     <main className="container mx-auto p-4 max-w-3xl">
-      <h1 className="text-3xl font-bold mb-2">Hi, I'm Harinder 👋</h1>
-      <p className="text-lg">
-        Senior Full-Stack Developer (React / Next.js / TypeScript)
-      </p>
-      <p className="mb-8">
-        I build clean, fast, and scalable web apps. Let’s make the web better.
-      </p>
+      <h1 className="text-3xl font-bold mb-1">Hi, I'm Harinder 👋</h1>
+      <p className="homepage-subtitle">senior full stack software developer</p>
+
+      <div className="skills-container">
+        {["React", "TypeScript", "Next.js", "JavaScript"].map((skill) => (
+          <span key={skill} className="skill-chip">
+            {skill}
+          </span>
+        ))}
+      </div>
 
       <section className="card">
-        <h2 className="text-2xl font-semibold mb-2">About Me</h2>
-        <p className="font-bold">Harinder Singh</p>
-        <p>📍 Toronto · Remote</p>
-        <p>📧 hrinder.maan@gmail.com</p>
+        <h2 className="section-heading">About Me</h2>
+        <p className="about-text">
+          I’m Harinder, a Toronto-based developer who loves building fast and
+          clean web apps with React, Next.js, and TypeScript. I have 8 years of
+          experience creating user-friendly experiences and solving problems
+          with simple, reliable code.
+        </p>
       </section>
 
       <section className="card">
