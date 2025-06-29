@@ -13,6 +13,7 @@ type Experience = {
   role: string;
   date: string;
   details: string[];
+  location: string;
 };
 
 const projects: Project[] = [
@@ -41,23 +42,26 @@ const projects: Project[] = [
 const experiences: Experience[] = [
   {
     company: "Scotiabank",
-    role: "Sr. Full Stack Developer",
-    date: "Aug 2022 - Present",
+    location: "Toronto, ON",
+    role: "Senior Front-End Developer",
+    date: "Aug 2022 – Present",
     details: [
-      "Built scalable React + Next.js apps for millions of users",
-      "Created a universal search SDK from scratch",
-      "Migrated apps to GCP Atlas for faster deployments",
-      "Integrated Dynatrace + Splunk for monitoring",
+      "Owned front-end of a SaaS-style financial portal used by 10,000+ employees, cutting dashboard load time by 60% and boosting satisfaction scores by 25%.",
+      "Partnered with product, design & ops in a 7-person squad to ship expense-management features that reduced month-end close time by 30%.",
+      "Mentored 4 junior developers in React/TypeScript best practices, raising team velocity by 20% and slashing PR revisions by 50%.",
+      "Championed migration from PCF to AWS/GCP, achieving 40% faster deployments and saving $25K+ annually in cloud costs.",
+      "Implemented code-splitting, lazy loading and caching strategies, proactively raising the bar for performance across all squads.",
     ],
   },
   {
     company: "Manulife",
-    role: "Full-stack Developer",
-    date: "Dec 2020 - Jul 2022",
+    location: "Toronto, ON",
+    role: "Full-Stack Developer",
+    date: "Dec 2020 – Aug 2022",
     details: [
-      "Developed full-stack apps to process & visualize data",
-      "Followed agile development with daily stand-ups",
-      "Integrated and debugged 3rd-party APIs",
+      "Led front-end development of a B2B insurance-agent portal, reducing policy processing time by 50% through optimized React workflows.",
+      "Built a shared UI component library (15+ React components with Storybook), accelerating new feature rollout by 35%.",
+      "Integrated AWS S3 for document storage and Django REST APIs for secure data access, ensuring 100% compliance in quarterly security audits.",
     ],
   },
 ];
@@ -74,7 +78,7 @@ const HomePage: React.FC = () => {
   return (
     <main className="container mx-auto p-4 max-w-3xl">
       <h1 className="text-3xl font-bold mb-1">Hi, I'm Harinder 👋</h1>
-      <p className="homepage-subtitle">senior full stack software developer</p>
+      <p className="homepage-subtitle">Senior Full Stack Software Developer</p>
 
       <div className="skills-container">
         {["React", "TypeScript", "Next.js", "JavaScript"].map((skill) => (
@@ -84,17 +88,19 @@ const HomePage: React.FC = () => {
         ))}
       </div>
 
-      <section className="card">
+      <section>
         <h2 className="section-heading">About Me</h2>
         <p className="about-text">
-          I’m Harinder, a Toronto-based developer who loves building fast and
-          clean web apps with React, Next.js, and TypeScript. I have 8 years of
-          experience creating user-friendly experiences and solving problems
-          with simple, reliable code.
+          I’m Harinder Singh, a Senior Full-Stack Developer based in Toronto
+          (remote). For over 8 years, I’ve built scalable web applications using
+          React, Next.js, and TypeScript. <br />
+          <br />
+          Lately, I’ve also been building AI-integrated apps with Hugging Face,
+          OpenAI APIs to add smart, cutting-edge features.
         </p>
       </section>
 
-      <section className="card">
+      <section>
         <h2 className="text-2xl font-semibold mb-4">Where I've Worked</h2>
 
         <div className="tabs-container">
@@ -130,7 +136,7 @@ const HomePage: React.FC = () => {
         )}
       </section>
 
-      <section className="card">
+      <section>
         <h2 className="text-2xl font-semibold mb-4">Projects</h2>
         {projects.map((proj) => (
           <div key={proj.title} className="project mb-4 border-b pb-2">

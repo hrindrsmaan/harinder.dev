@@ -75,13 +75,6 @@
   margin-bottom: 2rem;
 }
 
-.homepage-subtitle {
-  font-size: 0.875rem;
-  text-transform: lowercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 24px;
-}
-
 .homepage-container {
   max-width: 60rem;
   margin: 0 auto;
@@ -94,9 +87,8 @@
 }
 .homepage-subtitle {
   font-size: 0.875rem;
-  text-transform: lowercase;
   letter-spacing: 0.05em;
-  margin-bottom: 24px;
+  margin-bottom: 1rem;
 }
 .skills-container {
   display: flex;
