@@ -82,6 +82,16 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    min-height: calc(100vh - 60px);
+    padding-top: 100px; /* More space on mobile */
+    padding-bottom: 2rem;
+  }
+
+  .hero-content {
+    padding: 0 1rem; /* Add horizontal padding on mobile */
+  }
+
   .hero-title {
     font-size: 3rem;
   }
