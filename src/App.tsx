@@ -1,15 +1,25 @@
-import React from "react";
-import "./index.css";
-import HomePage from "./components/HomePage/HomePage";
-import { Analytics } from "@vercel/analytics/react";
+import FloatingElements from "./components/FloatingElements/FloatingElements";
+import Header from "./components/Header/Header";
+import Hero from "./components/Hero/Hero";
+import Experience from "./components/Experience/Experience";
+import Projects from "./components/Projects/Projects";
+import Contact from "./components/Contact/Contact";
+import Footer from "./components/Footer/Footer";
 
-const App: React.FC = () => {
+import "./styles/globals.css";
+
+function App() {
   return (
-    <>
-      <HomePage />;
-      <Analytics />
-    </>
+    <div className="App">
+      <FloatingElements />
+      <Header />
+      <Hero />
+      <Experience />
+      <Projects />
+      <Contact />
+      <Footer />
+    </div>
   );
-};
+}
 
 export default App;
