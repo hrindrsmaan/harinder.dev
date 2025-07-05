@@ -3,7 +3,7 @@ export const portfolioData = {
   name: "I'm Harinder Singh",
   title: "Senior Full Stack Software Developer",
   description:
-    "With over 8 years of experience building scalable web platforms, I’m now focused on applying cutting-edge AI to deliver real business value. By integrating Hugging Face and OpenAI models into modern web systems, I’ve created intelligent assistants, dynamic content generators, and real-time automation tools that enhance user engagement and efficiency",
+    "Senior developer with 5+ years building scalable web applications. Expertise in AI integration using OpenAI and Hugging Face to create automation tools and intelligent systems that enhance user engagement and business efficiency",
   techStack: [
     "React",
     "TypeScript",
@@ -29,7 +29,7 @@ export const experienceData = [
     logo: "S",
     highlights: [
       "Designed and developed scalable web applications using React, Next.js, and TypeScript, enhancing user experience",
-      "Created a universal search SDK from scratch, streamlining internal team operations and collaboration",
+      "Built a search SDK from scratch, now used across multiple cross-functional teams internally",
       "Migrated legacy frontend applications to GCP Atlas, significantly improving deployment time and scalability",
       "Integrated observability tools like Dynatrace and Splunk for proactive issue detection and monitoring",
     ],

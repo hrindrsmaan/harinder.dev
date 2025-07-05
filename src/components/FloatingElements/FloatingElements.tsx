@@ -7,7 +7,6 @@ const FloatingElements = () => {
   const [elements, setElements] = useState([]);
 
   useEffect(() => {
-    // Create initial floating elements
     const initialElements = Array.from({ length: 9 }, (_, i) => ({
       id: i,
       left: (i + 1) * 10,
