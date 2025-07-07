@@ -12,13 +12,13 @@ export const projectsData = [
   },
   {
     id: 2,
-    title: "Stripe Integration Demo",
+    title: "PromptNest.info",
     description:
-      "Complete payment flow demonstration showcasing Stripe integration with Next.js. Features secure payment processing, webhook handling, and dashboard analytics.",
-    technologies: ["Next.js", "Stripe API", "Node.js", "PostgreSQL"],
-    liveUrl: "https://stripe-nextjs-chi.vercel.app/",
-    codeUrl: "https://github.com/yourusername/stripe-demo",
-    icon: "💳",
+      "An AI platform designed to enhance human prompts. Helps users create better, more effective prompts for AI interactions and improves communication with AI systems.",
+    technologies: ["Next.js", "OpenAI APIs", "TypeScript", "Deepseek"],
+    liveUrl: "https://www.promptnest.info/",
+    codeUrl: "https://github.com/hrindrsmaan/promptnest.info",
+    icon: "🤖",
     featured: true,
   },
 ];
