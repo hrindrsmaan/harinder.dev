@@ -16,15 +16,6 @@ const Hero = () => {
         <div className="hero-content">
           <div className="hero-greeting">{portfolioData.greeting}</div>
           <h1 className="hero-title">{portfolioData.name}</h1>
-          <p className="hero-subtitle">{portfolioData.title}</p>
-
-          <div className="tech-stack">
-            {portfolioData.techStack.map((tech, index) => (
-              <span key={index} className="tech-tag">
-                {tech}
-              </span>
-            ))}
-          </div>
 
           <p className="hero-description">{portfolioData.description}</p>
 
