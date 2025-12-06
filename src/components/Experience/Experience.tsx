@@ -2,8 +2,7 @@ import { experienceData } from "../../data/portfolio";
 import "./Experience.css";
 
 const Experience = () => {
-  // You can choose which style to use by changing the className
-  const bulletStyle = "with-diamond"; // Options: '', 'with-icon', 'with-check', 'with-diamond'
+  const bulletStyle = "with-diamond";
 
   return (
     <section className="experience" id="experience">
