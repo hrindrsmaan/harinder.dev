@@ -1,5 +1,5 @@
 .hero {
-  min-height: 100vh;
+  min-height: 60vh;
   display: flex;
   align-items: center;
   position: relative;
@@ -28,7 +28,7 @@
 }
 
 .hero-title {
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
   margin-bottom: 1rem;
   background: linear-gradient(135deg, #ffffff 0%, #4ecdc4 100%);
@@ -36,6 +36,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   line-height: 1.1;
+  white-space: nowrap;
 }
 
 .hero-subtitle {
@@ -83,9 +84,9 @@
 
 @media (max-width: 768px) {
   .hero {
-    min-height: calc(100vh - 60px);
-    padding-top: 100px; /* More space on mobile */
-    padding-bottom: 2rem;
+    min-height: calc(60vh - 60px);
+    padding-top: 60px; /* Further reduced space on mobile */
+    padding-bottom: 1rem;
   }
 
   .hero-content {
@@ -93,7 +94,8 @@
   }
 
   .hero-title {
-    font-size: 3rem;
+    font-size: 2.2rem;
+    white-space: nowrap;
   }
 
   .hero-subtitle {

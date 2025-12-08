@@ -14,7 +14,10 @@ export const experienceData = [
   {
     company: "Scotiabank",
     position: "Senior Full Stack Developer",
+    description:
+      "Built and scaled AI-powered property intelligence dashboards and full-stack data flows, with multimodal search and subscription/billing.",
     duration: "Aug 2022 – Present",
+    location: "Toronto, Canada",
     logo: "S",
     highlights: [
       "Architected and delivered a micro-frontend platform and Node.js backend-for-frontend services impacting millions of banking customers, leading technical scope and execution across multiple quarters.",
@@ -28,13 +31,54 @@ export const experienceData = [
   {
     company: "Manulife",
     position: "Full Stack Developer",
+    description:
+      "Developed and maintained enterprise web applications with a focus on data visualization and user experience.",
     duration: "Previous Experience",
+    location: "Toronto, Canada",
     logo: "M",
     highlights: [
       "Developed full-stack web applications which processed, analyzed and rendered data visually",
       "Planned, wrote, and debugged web applications and software with complete accuracy",
       "Followed agile development practices with daily stand-ups and regular product demo days with product stakeholders",
       "Interacted with third-party APIs and defined design processes at all stages, including research, conceptualization, testing, and implementation",
+      "Built microservices architecture with service discovery, load balancing, and API gateway patterns.",
+      "Designed RESTful APIs with OpenAPI/Swagger specifications and comprehensive monitoring/alerting.",
+    ],
+  },
+];
+
+export const educationData = [
+  {
+    institution: "Army Institute of Technology",
+    degree: "Bachelor's in Computer Science",
+    duration: "2012–2016",
+    location: "Pune, India",
+    logo: "A",
+    description:
+      "Bachelor's in Computer Science emphasizing software engineering fundamentals and systems programming.",
+    achievements: [
+      "Completed core CS curriculum: Data Structures & Algorithms, Operating Systems, Computer Networks, Compilers, and Databases.",
+      "Built several full-stack projects and interactive UIs, practicing modern web patterns and clean component architecture.",
+      "Collaborated on team projects and hackathon-style coursework, adopting Git-based workflows and code reviews.",
+      "Worked in teams using Git, code reviews, and Agile methods, improving teamwork and communication skills.",
+      "Practiced writing clean and organized code and learned basic software engineering principles.",
+    ],
+  },
+  {
+    institution: "Lambton College",
+    degree: "Post Graduation Diploma in Computer Science",
+    duration: "2018–2020",
+    location: "Toronto, Canada",
+    logo: "L",
+    description:
+      "Studied advanced computer science topics with a focus on modern web development and software engineering.",
+    achievements: [
+      "Learned to build full-stack web applications using tools like JavaScript, React, Node.js, and databases.",
+      "Improved skills in API design, testing, debugging, and writing clean, maintainable code.",
+      "Completed hands-on projects that strengthened knowledge of cloud services, version control, and deployment.",
+      "Worked in team projects that improved communication, problem-solving, and real-world development experience.",
+      "Learned to build full-stack web applications using tools like JavaScript, React, Node.js, and databases.",
+      "Gained practical experience by building several real-world apps and mini-projects, helping me understand how software is designed, built, and delivered end to end.",
     ],
   },
 ];

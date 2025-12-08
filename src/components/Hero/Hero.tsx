@@ -21,16 +21,16 @@ const Hero = () => {
 
           <div className="cta-buttons">
             <button
-              onClick={() => scrollToSection("projects")}
+              onClick={() => scrollToSection("experience")}
               className="btn btn-primary"
             >
-              View My Work
+              Experience
             </button>
             <button
-              onClick={() => scrollToSection("contact")}
+              onClick={() => scrollToSection("projects")}
               className="btn btn-secondary"
             >
-              Get In Touch
+              View My Work
             </button>
           </div>
         </div>
