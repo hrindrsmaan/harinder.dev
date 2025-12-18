@@ -60,6 +60,38 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Coming Soon Section */
+.coming-soon-section {
+  padding: 3rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 4rem;
+}
+
+.coming-soon-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.coming-soon-container h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #4ecdc4;
+  margin-bottom: 1rem;
+}
+
+.coming-soon-container p {
+  font-size: 1rem;
+  color: #b0b0b0;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.compiler-link {
+  margin-top: 1rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {
@@ -69,5 +101,14 @@ body {
   .section-title {
     font-size: 2rem;
     margin-bottom: 0.4rem;
+  }
+
+  .coming-soon-section {
+    padding: 2rem 1rem;
+    margin-top: 2rem;
+  }
+
+  .coming-soon-container h3 {
+    font-size: 1.2rem;
   }
 }

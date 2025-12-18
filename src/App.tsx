@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import FloatingElements from "./components/FloatingElements/FloatingElements";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
@@ -6,21 +7,50 @@ import Education from "./components/Education/Education";
 import Projects from "./components/Projects/Projects";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
+import JSCompiler from "./components/JSCompiler/JSCompiler";
 
 import "./styles/globals.css";
 
 function App() {
   return (
-    <div className="App">
-      <FloatingElements />
-      <Header />
-      <Hero />
-      <Experience />
-      <Education />
-      <Projects />
-      <Contact />
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <FloatingElements />
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Hero />
+                <Experience />
+                <Education />
+                <Projects />
+                <Contact />
+                <section className="coming-soon-section">
+                  <div className="coming-soon-container">
+                    <h3>🚧 JavaScript Online Compiler (Under Construction)</h3>
+                    <p>
+                      I'm working on an interactive JavaScript compiler where
+                      you can write, run, and test JavaScript code directly in
+                      your browser. Try the early version!
+                    </p>
+                    <a
+                      href="/js-compiler"
+                      className="btn btn-primary compiler-link"
+                    >
+                      Try Early Version →
+                    </a>
+                  </div>
+                </section>
+              </>
+            }
+          />
+          <Route path="/js-compiler" element={<JSCompiler />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
