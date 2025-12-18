@@ -1,9 +1,12 @@
 // @ts-nocheck
 import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,10 +17,23 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+  const handleNavigation = (sectionId) => {
+    if (location.pathname !== "/") {
+      // If not on home page, navigate to home first
+      navigate("/");
+      // Wait a bit for navigation, then scroll
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    } else {
+      // If on home page, just scroll
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
   };
 
@@ -27,20 +43,20 @@ const Header = () => {
         <div className="logo">harinder.dev</div>
         <ul className="nav-links">
           <li>
-            <button onClick={() => scrollToSection("home")}>Home</button>
+            <button onClick={() => handleNavigation("home")}>Home</button>
           </li>
           <li>
-            <button onClick={() => scrollToSection("experience")}>
+            <button onClick={() => handleNavigation("experience")}>
               Experience
             </button>
           </li>
           <li>
-            <button onClick={() => scrollToSection("projects")}>
+            <button onClick={() => handleNavigation("projects")}>
               Projects
             </button>
           </li>
           <li>
-            <button onClick={() => scrollToSection("contact")}>Contact</button>
+            <button onClick={() => handleNavigation("contact")}>Contact</button>
           </li>
         </ul>
       </nav>
