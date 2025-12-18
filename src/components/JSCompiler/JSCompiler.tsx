@@ -1,6 +1,4 @@
 import { useState, useRef } from "react";
-import "prismjs/themes/prism-tomorrow.css";
-import "prismjs/components/prism-javascript";
 import "./JSCompiler.css";
 
 const JSCompiler = () => {
