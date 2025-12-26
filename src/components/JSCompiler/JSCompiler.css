@@ -1,7 +1,7 @@
 .js-compiler-section {
-  padding: 1rem 2rem;
+  padding: 4rem 3rem 1rem 3rem;
   min-height: 100vh;
-  background: #0a0a0a;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
   color: #e0e0e0;
 }
 
@@ -15,7 +15,11 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #fff;
+  padding-bottom: 1rem;
+  background: linear-gradient(45deg, #6e45e2, #88d3ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   text-align: left;
 }
 
@@ -44,6 +48,9 @@
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .run-button {
@@ -53,7 +60,8 @@
 
 .run-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(110, 69, 226, 0.3);
+  box-shadow: 0 4px 12px rgba(110, 69, 226, 0.3),
+    0 0 20px rgba(110, 69, 226, 0.2);
 }
 
 .run-button:disabled {
@@ -109,9 +117,11 @@
 .editor-container,
 .output-container {
   background: #111;
-  border-radius: 8px;
+  border-radius: 12px;
   border: 1px solid #333;
-  overflow: hidden;
+  overflow: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
 }
 
 .editor-container {
@@ -192,6 +202,19 @@
   content: "•";
   color: #6e45e2;
   font-size: 1.2rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.run-button.running svg {
+  animation: spin 1s linear infinite;
 }
 
 @media (max-width: 768px) {
