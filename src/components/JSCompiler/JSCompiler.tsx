@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import Editor from "@monaco-editor/react";
+import { Play, RotateCcw } from "lucide-react";
 import "./JSCompiler.css";
 
 const JSCompiler = () => {
@@ -150,7 +152,12 @@ const JSCompiler = () => {
         </p>
 
         <div className="compiler-controls">
-          <button onClick={runCode} disabled={isRunning} className="run-button">
+          <button
+            onClick={runCode}
+            disabled={isRunning}
+            className={`run-button ${isRunning ? "running" : ""}`}
+          >
+            <Play size={16} />
             {isRunning ? "Running..." : "Run Code"}
           </button>
           <button
@@ -158,6 +165,7 @@ const JSCompiler = () => {
             disabled={isRunning}
             className="clear-button"
           >
+            <RotateCcw size={16} />
             Clear Output
           </button>
         </div>
@@ -166,12 +174,12 @@ const JSCompiler = () => {
 
         <div className="compiler-layout">
           <div className="editor-container">
-            <textarea
+            <Editor
+              height="100%"
+              language="javascript"
               value={code}
-              onChange={(e) => setCode(e.target.value)}
-              className="code-editor"
-              spellCheck="false"
-              placeholder="Write your JavaScript code here..."
+              onChange={(value) => setCode(value || "")}
+              theme="vs-dark"
             />
           </div>
 
