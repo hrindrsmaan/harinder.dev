@@ -1,9 +1,13 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { Play, RotateCcw } from "lucide-react";
 import "./JSCompiler.css";
 
 const JSCompiler = () => {
+  useEffect(() => {
+    document.title = "JavaScript Online Compiler - Harinder.dev";
+  }, []);
+
   const [code, setCode] = useState<string>(
     '// Write your JavaScript code here\nconsole.log("Hello, World!");'
   );
@@ -145,7 +149,7 @@ const JSCompiler = () => {
   return (
     <section id="js-compiler" className="js-compiler-section">
       <div className="compiler-container">
-        <h2 className="compiler-title">JavaScript Online Compiler</h2>
+        <h1 className="compiler-title">JavaScript Online Compiler</h1>
         <p className="compiler-description">
           Write and run JavaScript code directly in your browser. Perfect for
           testing snippets, learning, or quick prototyping.
