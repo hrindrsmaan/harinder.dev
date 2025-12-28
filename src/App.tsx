@@ -8,15 +8,14 @@ import Projects from "./components/Projects/Projects";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import JSCompiler from "./components/JSCompiler/JSCompiler";
-import { useCanonicalUrl } from "./hooks/useCanonicalUrl";
+import { CanonicalUrlManager } from "./hooks/useCanonicalUrl";
 
 import "./styles/globals.css";
 
 function App() {
-  useCanonicalUrl();
-
   return (
     <Router>
+      <CanonicalUrlManager />
       <div className="App">
         <FloatingElements />
         <Header />

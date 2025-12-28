@@ -40,3 +40,9 @@ export const useCanonicalUrl = () => {
     };
   }, [location.pathname]);
 };
+
+// Component wrapper for useCanonicalUrl hook
+export const CanonicalUrlManager = () => {
+  useCanonicalUrl();
+  return null;
+};
