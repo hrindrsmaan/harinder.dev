@@ -29,7 +29,7 @@ export const experienceData = [
     ],
   },
   {
-    company: "Procom",
+    company: "",
     position: "Full Stack Developer",
     description:
       "Developed and maintained enterprise web applications with a focus on data visualization and user experience.",
