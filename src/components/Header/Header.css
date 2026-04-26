@@ -101,6 +101,23 @@
   width: 100%;
 }
 
+.nav-tool-link {
+  background: none;
+  border: none;
+  color: #4ecdc4;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background: rgba(78, 205, 196, 0.1);
+}
+
+.nav-tool-link:hover {
+  background: rgba(78, 205, 196, 0.2);
+}
+
 @media (max-width: 768px) {
   .nav {
     padding: 1rem;
