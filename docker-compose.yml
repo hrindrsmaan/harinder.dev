@@ -1,0 +1,10 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: harinder-dev:latest
+    container_name: harinder-dev
+    ports:
+      - "3000:80"
+    restart: unless-stopped
