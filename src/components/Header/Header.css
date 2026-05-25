@@ -3,15 +3,9 @@
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1a1a1a;
+  border-bottom: 2px solid #e0e0e0;
   z-index: 1000;
-  transition: all 0.3s ease;
-}
-
-.header.scrolled {
-  background: rgba(10, 10, 10, 0.98);
 }
 
 .nav {
@@ -19,17 +13,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e0e0e0;
+  text-decoration: none;
 }
 
 .nav-links {
@@ -38,84 +30,35 @@
   list-style: none;
 }
 
-.nav-links button {
+.nav-links button,
+.nav-links a {
   background: none;
   border: none;
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-  position: relative;
+  color: #e0e0e0;
+  text-decoration: underline;
   cursor: pointer;
   font-size: 1rem;
+  font-family: inherit;
+  padding: 0;
 }
 
-.nav-links button:hover {
-  color: #4ecdc4;
-}
-
-.nav-links button::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #4ecdc4;
-  transition: width 0.3s ease;
-}
-
-.nav-links button:hover::after {
-  width: 100%;
-}
-
-.nav-link {
-  background: none;
-  border: none;
+.nav-links button:hover,
+.nav-links a:hover {
   color: #ffffff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-  position: relative;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-}
-
-.nav-link:hover {
-  color: #4ecdc4;
-}
-
-.nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #4ecdc4;
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
 }
 
 .nav-tool-link {
   background: none;
-  border: none;
-  color: #4ecdc4;
+  border: 1px solid #e0e0e0;
+  color: #e0e0e0;
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  background: rgba(78, 205, 196, 0.1);
+  font-size: 0.9rem;
+  padding: 0.25rem 0.75rem;
 }
 
 .nav-tool-link:hover {
-  background: rgba(78, 205, 196, 0.2);
+  background: #e0e0e0;
+  color: #1a1a1a;
 }
 
 @media (max-width: 768px) {
@@ -124,6 +67,6 @@
   }
 
   .nav-links {
-    display: none;
+    gap: 1rem;
   }
 }

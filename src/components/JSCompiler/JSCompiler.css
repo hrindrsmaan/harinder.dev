@@ -1,26 +1,22 @@
 .js-compiler-section {
-  padding: 4rem 3rem 1rem 3rem;
+  padding: 4rem 1rem 1rem;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  background: #1a1a1a;
   color: #e0e0e0;
 }
 
 .compiler-container {
   width: 100%;
-  height: calc(100vh - 2rem);
-  margin: 0;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .compiler-title {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: normal;
   margin-bottom: 0.5rem;
-  padding-bottom: 1rem;
-  background: linear-gradient(45deg, #6e45e2, #88d3ce);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-align: left;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e0e0e0;
 }
 
 .compiler-description {
@@ -42,41 +38,35 @@
 .run-button,
 .clear-button {
   padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  border: 2px solid #e0e0e0;
+  background: transparent;
+  color: #e0e0e0;
   font-size: 0.9rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-.run-button {
-  background: linear-gradient(45deg, #6e45e2, #88d3ce);
-  color: white;
+  font-family: inherit;
+  cursor: pointer;
 }
 
 .run-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(110, 69, 226, 0.3),
-    0 0 20px rgba(110, 69, 226, 0.2);
+  background: #e0e0e0;
+  color: #1a1a1a;
 }
 
 .run-button:disabled {
-  background: #333;
+  opacity: 0.5;
   cursor: not-allowed;
-  opacity: 0.7;
 }
 
 .clear-button {
-  background: #333;
-  color: #fff;
+  background: #555555;
+  color: #e0e0e0;
 }
 
 .clear-button:hover:not(:disabled) {
-  background: #444;
+  background: #e0e0e0;
+  color: #1a1a1a;
 }
 
 .examples-dropdown {
@@ -85,43 +75,40 @@
 
 .example-select {
   padding: 0.5rem 1rem;
-  border-radius: 6px;
-  background: #222;
-  color: #fff;
-  border: 1px solid #444;
+  border: 1px solid #555555;
+  background: #2a2a2a;
+  color: #e0e0e0;
   cursor: pointer;
   font-size: 1rem;
+  font-family: inherit;
 }
 
 .example-select:hover {
-  border-color: #6e45e2;
+  border-color: #e0e0e0;
 }
 
 .error-message {
-  background: #ff444422;
-  color: #ff6b6b;
+  background: #2a2a2a;
+  color: #e0e0e0;
   padding: 1rem;
-  border-radius: 6px;
   margin-bottom: 1rem;
   text-align: center;
-  border: 1px solid #ff444444;
+  border: 1px solid #555555;
 }
 
 .compiler-layout {
   display: grid;
   grid-template-columns: 70% 30%;
   gap: 1rem;
-  height: calc(100% - 120px);
+  height: calc(100vh - 250px);
+  min-height: 400px;
 }
 
 .editor-container,
 .output-container {
-  background: #111;
-  border-radius: 12px;
-  border: 1px solid #333;
+  background: #2a2a2a;
+  border: 1px solid #555555;
   overflow: auto;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
 }
 
 .editor-container {
@@ -132,7 +119,7 @@
 .code-editor {
   width: 100%;
   height: 100%;
-  background: #1e1e1e;
+  background: #3a3a3a;
   color: #e0e0e0;
   border: none;
   padding: 1rem;
@@ -145,11 +132,7 @@
 }
 
 .code-editor:focus {
-  outline: 2px solid #6e45e2;
-}
-
-.code-editor:focus {
-  outline: 2px solid #6e45e2;
+  outline: 2px solid #e0e0e0;
 }
 
 .output-container {
@@ -158,31 +141,32 @@
 }
 
 .output-header {
-  background: #222;
+  background: #e0e0e0;
+  color: #1a1a1a;
   padding: 0.75rem 1rem;
-  font-weight: 600;
-  border-bottom: 1px solid #333;
+  font-weight: normal;
+  border-bottom: 1px solid #555555;
 }
 
 .output-iframe {
   width: 100%;
   height: calc(100% - 40px);
   border: none;
-  background: #1e1e1e;
+  background: #3a3a3a;
 }
 
 .compiler-info {
-  background: #111;
+  background: #2a2a2a;
   padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid #333;
-  margin-top: 2rem;
+  border: 1px solid #555555;
+  margin-top: 1.5rem;
 }
 
 .compiler-info h3 {
-  color: #fff;
+  color: #e0e0e0;
   margin-bottom: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: normal;
 }
 
 .compiler-info ul {
@@ -199,27 +183,15 @@
 }
 
 .compiler-info li:before {
-  content: "•";
-  color: #6e45e2;
-  font-size: 1.2rem;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.run-button.running svg {
-  animation: spin 1s linear infinite;
+  content: "-";
+  margin-right: 0.5rem;
 }
 
 @media (max-width: 768px) {
   .compiler-layout {
     grid-template-columns: 1fr;
+    height: auto;
+    min-height: 600px;
   }
 
   .compiler-controls {
