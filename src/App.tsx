@@ -30,22 +30,6 @@ function App() {
                 <Education />
                 <Projects />
                 <Contact />
-                <section className="coming-soon-section">
-                  <div className="coming-soon-container">
-                    <h3>🚧 JavaScript Online Compiler (Under Construction)</h3>
-                    <p>
-                      I'm working on an interactive JavaScript compiler where
-                      you can write, run, and test JavaScript code directly in
-                      your browser. Try the early version!
-                    </p>
-                    <a
-                      href="/js-compiler"
-                      className="btn btn-primary compiler-link"
-                    >
-                      Try Early Version →
-                    </a>
-                  </div>
-                </section>
               </>
             }
           />
