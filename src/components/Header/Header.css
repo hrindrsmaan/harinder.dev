@@ -13,8 +13,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  max-width: 800px;
+  max-width: var(--max-width, 1200px);
   margin: 0 auto;
+  position: relative;
 }
 
 .logo {
@@ -22,12 +23,46 @@
   font-weight: bold;
   color: #e0e0e0;
   text-decoration: none;
+  white-space: nowrap;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1001;
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #e0e0e0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hamburger.open .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .nav-links {
   display: flex;
   gap: 2rem;
   list-style: none;
+  margin: 0;
 }
 
 .nav-links button,
@@ -40,6 +75,7 @@
   font-size: 1rem;
   font-family: inherit;
   padding: 0;
+  white-space: nowrap;
 }
 
 .nav-links button:hover,
@@ -66,7 +102,45 @@
     padding: 1rem;
   }
 
+  .hamburger {
+    display: flex;
+  }
+
   .nav-links {
-    gap: 1rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: #1a1a1a;
+    border-bottom: 2px solid #e0e0e0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .nav-links.open {
+    max-height: 300px;
+  }
+
+  .nav-links li {
+    border-top: 1px solid #555555;
+  }
+
+  .nav-links button,
+  .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 1rem 2rem;
+    text-align: left;
+    font-size: 1rem;
+    text-decoration: none;
+  }
+
+  .nav-links button:hover,
+  .nav-links a:hover {
+    background: #2a2a2a;
+    color: #ffffff;
   }
 }

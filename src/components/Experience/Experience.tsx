@@ -9,23 +9,16 @@ const Experience = () => {
       <div className="container">
         <h2 className="section-title">Where I've Worked</h2>
 
-        <div className="section-subtitle">
-          Building impactful solutions at scale
-        </div>
-
         <div className="experience-timeline">
           {experienceData.map((experience, index) => (
             <div key={index} className="experience-card">
               <div className="experience-layout">
                 <div className="company-side">
-                  <div className="company-logo">{experience.logo}</div>
-                  <div className="company-name">{experience.company}</div>
+                  <div className="company-header-row">
+                    <div className="company-name">{experience.company}</div>
+                  </div>
                   <div className="job-title">{experience.position}</div>
-                  {experience.description && (
-                    <div className="job-description">
-                      {experience.description}
-                    </div>
-                  )}
+
                   <div className="info-cards">
                     <div className="info-card duration-card">
                       <span className="duration-icon">📅</span>

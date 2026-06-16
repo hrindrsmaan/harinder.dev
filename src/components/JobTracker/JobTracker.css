@@ -5,7 +5,7 @@
 }
 
 .job-tracker-container {
-  max-width: 800px;
+  max-width: var(--max-width, 1200px);
   margin: 0 auto;
 }
 
@@ -190,7 +190,7 @@
   background: #3a3a3a;
   border: 1px solid #555555;
   color: #e0e0e0;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-family: inherit;
 }
 
@@ -338,5 +338,33 @@
 
   .form-row {
     grid-template-columns: 1fr;
+  }
+
+  .tracker-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .stat-card {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .filter-group {
+    justify-content: center;
   }
 }
