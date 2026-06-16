@@ -5,6 +5,7 @@ import "./Header.css";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,10 +19,9 @@ const Header = () => {
   }, []);
 
   const handleNavigation = (sectionId) => {
+    setMenuOpen(false);
     if (location.pathname !== "/") {
-      // If not on home page, navigate to home first
       navigate("/");
-      // Wait a bit for navigation, then scroll
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
@@ -29,7 +29,6 @@ const Header = () => {
         }
       }, 100);
     } else {
-      // If on home page, just scroll
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -41,7 +40,16 @@ const Header = () => {
     <header className={`header ${isScrolled ? "scrolled" : ""}`}>
       <nav className="nav">
         <div className="logo">harinder.dev</div>
-        <ul className="nav-links">
+        <button
+          className={`hamburger ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation"
+        >
+          <span className="hamburger-line" />
+          <span className="hamburger-line" />
+          <span className="hamburger-line" />
+        </button>
+        <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
           <li>
             <button onClick={() => handleNavigation("home")}>Home</button>
           </li>

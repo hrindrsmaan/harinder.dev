@@ -124,7 +124,7 @@
   border: none;
   padding: 1rem;
   font-family: "Courier New", monospace;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
   resize: none;
   outline: none;
@@ -191,7 +191,7 @@
   .compiler-layout {
     grid-template-columns: 1fr;
     height: auto;
-    min-height: 600px;
+    min-height: 400px;
   }
 
   .compiler-controls {

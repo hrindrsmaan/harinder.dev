@@ -9,18 +9,16 @@ const Education = () => {
       <div className="container">
         <h2 className="section-title">Education</h2>
 
-        <div className="section-subtitle">
-          Strong academic foundation from world-class institutions
-        </div>
-
         <div className="education-timeline">
           {educationData.map((education, index) => (
             <div key={index} className="education-card">
               <div className="education-layout">
                 <div className="institution-side">
-                  <div className="institution-logo">{education.logo}</div>
-                  <div className="institution-name">
-                    {education.institution}
+                  <div className="institution-header-row">
+                    <div className="institution-logo">{education.logo}</div>
+                    <div className="institution-name">
+                      {education.institution}
+                    </div>
                   </div>
                   <div className="degree-title">{education.degree}</div>
                   {education.description && (

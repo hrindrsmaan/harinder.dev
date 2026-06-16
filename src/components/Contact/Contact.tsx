@@ -7,12 +7,6 @@ const Contact = () => {
       <div className="container">
         <div className="contact-content">
           <h2 className="contact-title">Let's Build Something Amazing</h2>
-          <p className="contact-description">
-            I'm always excited to work on challenging projects and collaborate
-            with passionate teams. Whether it's a startup MVP or
-            enterprise-scale application, let's discuss how we can bring your
-            vision to life.
-          </p>
 
           <div className="social-links">
             <a
