@@ -12,21 +12,27 @@
 }
 
 .hero-greeting {
-  font-size: 1rem;
-  color: #b0b0b0;
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-color);
   margin-bottom: 1rem;
-  font-family: "Courier New", Courier, monospace;
 }
 
 .hero-title {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  letter-spacing: -0.02em;
   margin-bottom: 1rem;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .hero-subtitle {
-  font-size: 1.2rem;
-  color: #b0b0b0;
+  font-size: 1.25rem;
+  color: var(--text-secondary);
   margin-bottom: 2rem;
 }
 
@@ -39,15 +45,17 @@
 }
 
 .tech-tag {
-  border: 1px solid #e0e0e0;
-  color: #e0e0e0;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  font-family: var(--font-sans);
   padding: 0.25rem 0.75rem;
-  font-size: 0.9rem;
+  font-size: var(--text-xs);
 }
 
 .hero-description {
-  font-size: 1rem;
-  color: #b0b0b0;
+  font-size: var(--text-base);
+  color: var(--text-secondary);
   margin-bottom: 2rem;
   max-width: 600px;
   margin-left: auto;

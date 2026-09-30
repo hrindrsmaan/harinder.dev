@@ -29,7 +29,7 @@ const JSCompiler = () => {
           <html>
             <head>
               <style>
-                body { font-family: monospace; padding: 10px; background: #1e1e1e; color: #fff; }
+                body { font-family: monospace; padding: 10px; background: #ffffff; color: #0d0d0d; }
                 .console-output { white-space: pre-wrap; }
               </style>
             </head>
@@ -63,7 +63,7 @@ const JSCompiler = () => {
                 console.error = function(...args) {
                   const outputElement = document.getElementById('console');
                   if (outputElement) {
-                    outputElement.innerHTML += '<span style="color: #ff5555;">ERROR: </span>' + args.map(arg => {
+                    outputElement.innerHTML += '<span style="color: #cc0000;">ERROR: </span>' + args.map(arg => {
                       if (typeof arg === 'object') {
                         return JSON.stringify(arg, null, 2);
                       }
@@ -75,7 +75,7 @@ const JSCompiler = () => {
                 console.warn = function(...args) {
                   const outputElement = document.getElementById('console');
                   if (outputElement) {
-                    outputElement.innerHTML += '<span style="color: #ffcc00;">WARN: </span>' + args.map(arg => {
+                    outputElement.innerHTML += '<span style="color: #b45309;">WARN: </span>' + args.map(arg => {
                       if (typeof arg === 'object') {
                         return JSON.stringify(arg, null, 2);
                       }
@@ -87,7 +87,7 @@ const JSCompiler = () => {
                 console.info = function(...args) {
                   const outputElement = document.getElementById('console');
                   if (outputElement) {
-                    outputElement.innerHTML += '<span style="color: #00ccff;">INFO: </span>' + args.map(arg => {
+                    outputElement.innerHTML += '<span style="color: #0369a1;">INFO: </span>' + args.map(arg => {
                       if (typeof arg === 'object') {
                         return JSON.stringify(arg, null, 2);
                       }
@@ -134,7 +134,7 @@ const JSCompiler = () => {
         <html>
           <head>
             <style>
-              body { font-family: monospace; padding: 10px; background: #1e1e1e; color: #fff; }
+              body { font-family: monospace; padding: 10px; background: #ffffff; color: #0d0d0d; }
               .console-output { white-space: pre-wrap; }
             </style>
           </head>
@@ -183,7 +183,7 @@ const JSCompiler = () => {
               language="javascript"
               value={code}
               onChange={(value) => setCode(value || "")}
-              theme="vs-dark"
+              theme="vs"
             />
           </div>
 
@@ -199,7 +199,7 @@ const JSCompiler = () => {
                 <html>
                   <head>
                     <style>
-                      body { font-family: monospace; padding: 10px; background: #1e1e1e; color: #fff; margin: 0; }
+                      body { font-family: monospace; padding: 10px; background: #ffffff; color: #0d0d0d; margin: 0; }
                       .console-output { white-space: pre-wrap; font-size: 14px; line-height: 1.4; }
                     </style>
                   </head>
