@@ -1,6 +1,6 @@
 .projects {
   padding: 3rem 0;
-  background: #2a2a2a;
+  background: var(--bg-secondary);
 }
 
 .projects-grid {
@@ -10,9 +10,9 @@
 }
 
 .project-card {
-  border: 1px solid #555555;
+  border: 1px solid var(--border-color);
   padding: 1.5rem;
-  background: #3a3a3a;
+  background: var(--bg-tertiary);
 }
 
 .project-header {
@@ -25,7 +25,7 @@
 .project-icon {
   width: 35px;
   height: 35px;
-  border: 2px solid #e0e0e0;
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,14 +33,17 @@
 }
 
 .project-title {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
   font-size: 1.1rem;
   font-weight: bold;
-  color: #e0e0e0;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 .project-description {
-  color: #b0b0b0;
+  color: var(--text-secondary);
   margin-bottom: 1rem;
   line-height: 1.6;
 }
@@ -53,15 +56,15 @@
 }
 
 .tech-badge {
-  border: 1px solid #e0e0e0;
-  color: #e0e0e0;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
   padding: 0.2rem 0.5rem;
   font-size: 0.8rem;
 }
 
 .tech-badge:hover {
-  background: #e0e0e0;
-  color: #1a1a1a;
+  background: var(--text-primary);
+  color: var(--bg-primary);
 }
 
 .project-links {
@@ -71,14 +74,14 @@
 }
 
 .project-link {
-  color: #e0e0e0;
+  color: var(--text-primary);
   text-decoration: underline;
   font-size: 0.9rem;
   display: inline-block;
 }
 
 .project-link:hover {
-  color: #ffffff;
+  color: var(--accent-color);
 }
 
 @media (max-width: 768px) {

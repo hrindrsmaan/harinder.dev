@@ -1,3 +1,5 @@
+@import "./variables.css";
+
 * {
   margin: 0;
   padding: 0;
@@ -5,20 +7,22 @@
 }
 
 body {
-  font-family: "Courier New", Courier, monospace;
-  background: #1a1a1a;
-  color: #e0e0e0;
+  font-family: var(--font-serif);
+  font-size: var(--text-base);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
-  color: #e0e0e0;
+  color: var(--text-primary);
   text-decoration: underline;
 }
 
 a:hover {
-  color: #ffffff;
+  color: var(--accent-color);
 }
 
 h1,
@@ -27,7 +31,10 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: normal;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   margin-bottom: 1rem;
 }
 
@@ -42,10 +49,11 @@ p {
 }
 
 .section-title {
-  font-size: 2rem;
+  font-family: var(--font-sans);
+  font-size: 1.75rem;
   text-align: center;
   margin-bottom: 2rem;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 0.5rem;
   display: inline-block;
   width: 100%;
@@ -53,34 +61,35 @@ p {
 
 .btn {
   padding: 0.75rem 1.5rem;
-  border: 2px solid #e0e0e0;
+  border: 1px solid var(--border-strong);
   background: transparent;
-  color: #e0e0e0;
-  font-size: 1rem;
-  font-family: inherit;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
 }
 
 .btn:hover {
-  background: #e0e0e0;
-  color: #1a1a1a;
+  background: var(--text-primary);
+  color: var(--bg-primary);
 }
 
 .btn-primary {
-  background: #e0e0e0;
-  color: #1a1a1a;
+  background: var(--text-primary);
+  color: var(--bg-primary);
 }
 
 .btn-primary:hover {
-  background: #ffffff;
+  background: var(--text-strong);
 }
 
 /* Section styling */
 section {
   padding: 3rem 0;
-  border-bottom: 1px solid #555555;
+  border-bottom: 1px solid var(--border-color);
 }
 
 section:last-of-type {

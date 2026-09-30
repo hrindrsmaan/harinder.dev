@@ -1,14 +1,27 @@
 :root {
-  /* Homebrew Dark Mode Color Palette */
-  --bg-primary: #1a1a1a; /* Dark charcoal - main background */
-  --bg-secondary: #2a2a2a; /* Slightly lighter - cards/sections */
-  --bg-tertiary: #3a3a3a; /* Card backgrounds */
-  --text-primary: #e0e0e0; /* Light gray - main text */
-  --text-secondary: #b0b0b0; /* Medium gray - secondary text */
-  --text-muted: #808080; /* Darker gray - muted text */
-  --accent-color: #c0c0c0; /* Light gray - links/emphasis */
-  --border-color: #555555; /* Medium border */
-  --border-dark: #444444; /* Darker border for emphasis */
+  color-scheme: light;
+
+  /* Editorial Light Color Palette */
+  --bg-primary: #ffffff; /* White - main background */
+  --bg-secondary: #f7f7f7; /* Off-white - raised sections */
+  --bg-tertiary: #fafafa; /* Card backgrounds */
+  --text-primary: #0d0d0d; /* Near black - main text */
+  --text-secondary: #666666; /* Gray - captions/subtitles */
+  --text-muted: #767676; /* Light gray - muted text (AA on white) */
+  --text-strong: #000000; /* Pure black - hover/emphasis */
+  --accent-color: #cc0000; /* Red - kickers/accents */
+  --border-color: #e6e6e6; /* Hairline border */
+  --border-dark: #d9d9d9; /* Slightly stronger hairline */
+  --border-strong: #0d0d0d; /* Rules that read as structure */
+
+  /* Typography */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "Courier New", Courier, monospace;
+
+  --text-base: 1.125rem; /* 18px - body copy */
+  --text-sm: 0.9375rem; /* 15px - secondary copy */
+  --text-xs: 0.8125rem; /* 13px - kickers/meta */
 
   /* Spacing */
   --space-xs: 0.5rem;

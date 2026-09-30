@@ -25,10 +25,10 @@ interface Job {
 }
 
 const statusConfig: Record<JobStatus, { label: string; color: string }> = {
-  applied: { label: "Applied", color: "#3b82f6" },
-  interview: { label: "Interview", color: "#f59e0b" },
-  offer: { label: "Offer", color: "#10b981" },
-  rejected: { label: "Rejected", color: "#ef4444" },
+  applied: { label: "Applied", color: "#1d4ed8" },
+  interview: { label: "Interview", color: "#b45309" },
+  offer: { label: "Offer", color: "#047857" },
+  rejected: { label: "Rejected", color: "#dc2626" },
 };
 
 const STORAGE_KEY = "job-tracker-jobs";

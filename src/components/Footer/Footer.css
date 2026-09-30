@@ -1,5 +1,5 @@
 .footer {
-  border-top: 2px solid #e0e0e0;
+  border-top: 1px solid var(--border-strong);
   padding: 2rem 0;
   margin-top: 2rem;
 }
@@ -13,11 +13,11 @@
 .footer-logo .logo {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #e0e0e0;
+  color: var(--text-primary);
 }
 
 .footer-tagline {
-  color: #b0b0b0;
+  color: var(--text-secondary);
   font-style: italic;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .footer-section h4 {
-  color: #e0e0e0;
+  color: var(--text-primary);
   font-size: 1rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
@@ -44,12 +44,12 @@
 }
 
 .footer-section ul li a {
-  color: #e0e0e0;
+  color: var(--text-primary);
   text-decoration: underline;
 }
 
 .footer-section ul li a:hover {
-  color: #ffffff;
+  color: var(--accent-color);
 }
 
 .footer-bottom {
@@ -57,13 +57,13 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 1.5rem;
-  border-top: 1px solid #555555;
+  border-top: 1px solid var(--border-color);
   flex-wrap: wrap;
   gap: 1rem;
 }
 
 .footer-bottom p {
-  color: #b0b0b0;
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
@@ -73,13 +73,13 @@
 }
 
 .footer-bottom-links a {
-  color: #e0e0e0;
+  color: var(--text-primary);
   text-decoration: underline;
   font-size: 0.9rem;
 }
 
 .footer-bottom-links a:hover {
-  color: #ffffff;
+  color: var(--accent-color);
 }
 
 @media (max-width: 768px) {
