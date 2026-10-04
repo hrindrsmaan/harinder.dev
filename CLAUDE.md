@@ -17,7 +17,7 @@ There is no test framework configured — no test runner, no test files. `npm ru
 
 ## Architecture
 
-Static single-page portfolio: React 19 + TypeScript + Vite, no backend, no data fetching beyond one IP lookup. Deployed to Vercel (`vercel.json`) and also packaged as an nginx image (`Dockerfile` + `nginx.conf`); both configs exist solely to provide the SPA fallback rewrite to `index.html`.
+Static single-page portfolio: React 19 + TypeScript + Vite, no backend, no data fetching beyond one IP lookup. Packaged as an nginx image (`Dockerfile` + `nginx.conf`) for deployment (e.g. to GCP); Nginx provides the SPA fallback rewrite to `index.html`.
 
 `src/App.tsx` is the whole app shell: `FloatingElements` + `Header` + `<Routes>` + `Footer`. Three routes:
 
