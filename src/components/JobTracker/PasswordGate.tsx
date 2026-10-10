@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Lock, Eye, EyeOff } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import "./PasswordGate.css";
 
 const HASH_KEY = "job-tracker-password-hash";
@@ -86,9 +87,14 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             </button>
           </div>
           {error && <p className="error-message">{error}</p>}
-          <button type="submit" className="unlock-btn">
+          <Button
+            type="submit"
+            variant="outline"
+            size="lg"
+            className="w-full border-border-strong"
+          >
             {storedHash ? "Unlock" : "Set Password"}
-          </button>
+          </Button>
         </form>
       </div>
     </section>

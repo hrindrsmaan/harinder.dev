@@ -54,33 +54,10 @@
   margin-bottom: 1rem;
 }
 
-.tech-badge {
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  padding: 0.2rem 0.5rem;
-  font-size: 0.8rem;
-}
-
-.tech-badge:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-}
-
 .project-links {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
-}
-
-.project-link {
-  color: var(--text-primary);
-  text-decoration: underline;
-  font-size: 0.9rem;
-  display: inline-block;
-}
-
-.project-link:hover {
-  color: var(--accent-color);
 }
 
 @media (max-width: 768px) {
