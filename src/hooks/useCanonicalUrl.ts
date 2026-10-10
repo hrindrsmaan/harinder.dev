@@ -10,9 +10,6 @@ export const useCanonicalUrl = () => {
 
     // Set canonical URL based on current route
     switch (location.pathname) {
-      case "/js-compiler":
-        canonicalUrl = `${baseUrl}/js-compiler`;
-        break;
       case "/":
       default:
         canonicalUrl = baseUrl;

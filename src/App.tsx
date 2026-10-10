@@ -7,7 +7,6 @@ import Education from "./components/Education/Education";
 import Projects from "./components/Projects/Projects";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
-import JSCompiler from "./components/JSCompiler/JSCompiler";
 import JobTrackerPage from "./components/JobTracker/JobTrackerPage";
 import { CanonicalUrlManager } from "./hooks/useCanonicalUrl";
 
@@ -33,7 +32,6 @@ function App() {
               </>
             }
           />
-          <Route path="/js-compiler" element={<JSCompiler />} />
           <Route path="/job-tracker" element={<JobTrackerPage />} />
         </Routes>
         <Footer />
