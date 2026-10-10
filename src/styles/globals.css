@@ -161,33 +161,6 @@
     width: 100%;
   }
 
-  .btn {
-    padding: 0.75rem 1.5rem;
-    border: 1px solid var(--border-strong);
-    background: transparent;
-    color: var(--foreground);
-    font-family: var(--font-sans);
-    font-size: var(--fs-sm);
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .btn:hover {
-    background: var(--foreground);
-    color: var(--background);
-  }
-
-  .btn-primary {
-    background: var(--foreground);
-    color: var(--background);
-  }
-
-  .btn-primary:hover {
-    background: var(--strong);
-  }
-
   @media (max-width: 768px) {
     .section-title {
       font-size: 1.5rem;

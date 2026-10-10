@@ -1,3 +1,5 @@
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { projectsData } from "../../data/projects";
 import "./Projects.css";
 
@@ -17,28 +19,38 @@ const Projects = () => {
               <p className="project-description">{project.description}</p>
               <div className="project-tech">
                 {project.technologies.map((tech, index) => (
-                  <span key={index} className="tech-badge">
+                  <Badge key={index} variant="outline">
                     {tech}
-                  </span>
+                  </Badge>
                 ))}
               </div>
               <div className="project-links">
-                <a
-                  href={project.liveUrl}
-                  className="project-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Button
+                  asChild
+                  variant="link"
+                  className="h-auto px-0 hover:text-highlight"
                 >
-                  🚀 Live App
-                </a>
-                <a
-                  href={project.codeUrl}
-                  className="project-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    🚀 Live App
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  variant="link"
+                  className="h-auto px-0 hover:text-highlight"
                 >
-                  📋 View Code
-                </a>
+                  <a
+                    href={project.codeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    📋 View Code
+                  </a>
+                </Button>
               </div>
             </div>
           ))}

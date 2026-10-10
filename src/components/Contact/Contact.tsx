@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { portfolioData } from "../../data/portfolio";
 import "./Contact.css";
 
@@ -9,31 +10,34 @@ const Contact = () => {
           <h2 className="contact-title">Let's Build Something Amazing</h2>
 
           <div className="social-links">
-            <a
-              href={portfolioData.social.linkedin}
-              className="social-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </a>
-            <a
-              href={portfolioData.social.github}
-              className="social-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
+            <Button asChild variant="outline" size="lg" className="px-4 text-base">
+              <a
+                href={portfolioData.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn
+              </a>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="px-4 text-base">
+              <a
+                href={portfolioData.social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+            </Button>
 
-            <a
-              href="/resume.pdf"
-              className="social-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Resume
-            </a>
+            <Button asChild variant="outline" size="lg" className="px-4 text-base">
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Resume
+              </a>
+            </Button>
           </div>
         </div>
       </div>

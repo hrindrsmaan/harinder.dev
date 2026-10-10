@@ -11,6 +11,9 @@ import {
   Filter,
   Calendar,
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import "./JobTracker.css";
 
 type JobStatus = "applied" | "interview" | "offer" | "rejected";
@@ -23,11 +26,21 @@ interface Job {
   dateApplied: string;
 }
 
-const statusConfig: Record<JobStatus, { label: string; color: string }> = {
-  applied: { label: "Applied", color: "#1d4ed8" },
-  interview: { label: "Interview", color: "#b45309" },
-  offer: { label: "Offer", color: "#047857" },
-  rejected: { label: "Rejected", color: "#dc2626" },
+// Full class strings so Tailwind can detect them; colors are --status-* tokens
+const statusConfig: Record<JobStatus, { label: string; className: string }> = {
+  applied: {
+    label: "Applied",
+    className: "bg-status-applied/10 text-status-applied",
+  },
+  interview: {
+    label: "Interview",
+    className: "bg-status-interview/10 text-status-interview",
+  },
+  offer: { label: "Offer", className: "bg-status-offer/10 text-status-offer" },
+  rejected: {
+    label: "Rejected",
+    className: "bg-status-rejected/10 text-status-rejected",
+  },
 };
 
 const STORAGE_KEY = "job-tracker-jobs";
@@ -190,25 +203,26 @@ const JobTracker = () => {
             <div className="interview-label">Interviewing With</div>
             <div className="interview-companies">
               {stats.interview.map((job) => (
-                <span key={job.id} className="company-chip">
+                <Badge key={job.id} variant="outline">
                   {job.company}
-                </span>
+                </Badge>
               ))}
             </div>
           </div>
         )}
 
         <div className="toolbar">
-          <button
-            className="add-btn"
+          <Button
+            variant="outline"
+            className="border-border-strong"
             onClick={() => {
               resetForm();
               setShowForm(!showForm);
             }}
           >
-            {showForm ? <X size={18} /> : <Plus size={18} />}
+            {showForm ? <X /> : <Plus />}
             {showForm ? "Cancel" : "Add Job"}
-          </button>
+          </Button>
 
           <div className="filter-group">
             <Filter size={16} />
@@ -282,10 +296,14 @@ const JobTracker = () => {
               />
             </div>
             <div className="form-actions">
-              <button type="submit" className="submit-btn">
-                <Check size={16} />
+              <Button
+                type="submit"
+                variant="outline"
+                className="border-border-strong"
+              >
+                <Check />
                 {editingId ? "Update" : "Add Job"}
-              </button>
+              </Button>
             </div>
           </form>
         )}
@@ -306,26 +324,34 @@ const JobTracker = () => {
                 <div className="job-top">
                   <div className="job-info">
                     <h3>{job.company}</h3>
-                    <span
-                      className="status-badge"
-                      style={{
-                        background: `${statusConfig[job.status].color}15`,
-                        color: statusConfig[job.status].color,
-                      }}
+                    <Badge
+                      variant="outline"
+                      className={cn(
+                        "uppercase",
+                        statusConfig[job.status].className
+                      )}
                     >
                       {statusConfig[job.status].label}
-                    </span>
+                    </Badge>
                   </div>
                   <div className="job-actions">
-                    <button onClick={() => handleEdit(job)} className="icon-btn">
-                      <Edit2 size={14} />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(job.id)}
-                      className="icon-btn delete"
+                    <Button
+                      variant="outline"
+                      size="icon-sm"
+                      aria-label={`Edit ${job.company}`}
+                      onClick={() => handleEdit(job)}
                     >
-                      <Trash2 size={14} />
-                    </button>
+                      <Edit2 />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon-sm"
+                      aria-label={`Delete ${job.company}`}
+                      className="hover:text-destructive"
+                      onClick={() => handleDelete(job.id)}
+                    >
+                      <Trash2 />
+                    </Button>
                   </div>
                 </div>
 

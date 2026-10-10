@@ -25,20 +25,6 @@
   flex-wrap: wrap;
 }
 
-.social-link {
-  color: var(--text-primary);
-  font-size: 1rem;
-  text-decoration: underline;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border-color);
-  display: inline-block;
-}
-
-.social-link:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-}
-
 @media (max-width: 768px) {
   .contact-title {
     font-size: 1.5rem;
@@ -46,10 +32,5 @@
 
   .social-links {
     gap: 1rem;
-  }
-
-  .social-link {
-    font-size: 0.9rem;
-    padding: 0.4rem 0.75rem;
   }
 }

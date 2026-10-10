@@ -95,13 +95,6 @@
   gap: 0.5rem;
 }
 
-.company-chip {
-  border: 1px solid var(--border-color);
-  padding: 0.25rem 0.5rem;
-  font-size: 0.8rem;
-  color: var(--text-primary);
-}
-
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -109,24 +102,6 @@
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
   gap: 1rem;
-}
-
-.add-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-strong);
-  font-size: 0.9rem;
-  cursor: pointer;
-  font-family: var(--font-sans);
-}
-
-.add-btn:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
 }
 
 .filter-group {
@@ -137,6 +112,7 @@
 }
 
 .filter-group select {
+  font-size: 0.8333rem; /* UA control size; preflight would inherit 18px body */
   padding: 0.5rem;
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
@@ -200,24 +176,6 @@
   justify-content: flex-end;
 }
 
-.submit-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-strong);
-  font-size: 0.9rem;
-  cursor: pointer;
-  font-family: var(--font-sans);
-}
-
-.submit-btn:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-}
-
 .jobs-list {
   display: flex;
   flex-direction: column;
@@ -258,35 +216,9 @@
   margin: 0;
 }
 
-.status-badge {
-  padding: 0.2rem 0.5rem;
-  border: 1px solid var(--border-color);
-  font-size: 0.7rem;
-  color: var(--text-primary);
-  text-transform: uppercase;
-}
-
 .job-actions {
   display: flex;
   gap: 0.5rem;
-}
-
-.icon-btn {
-  padding: 0.3rem 0.5rem;
-  background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  cursor: pointer;
-  font-family: var(--font-sans);
-}
-
-.icon-btn:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-}
-
-.icon-btn.delete:hover {
-  background: var(--text-secondary);
 }
 
 .job-meta {
@@ -346,11 +278,6 @@
   .toolbar {
     flex-direction: column;
     align-items: stretch;
-  }
-
-  .add-btn {
-    width: 100%;
-    justify-content: center;
   }
 
   .filter-group {

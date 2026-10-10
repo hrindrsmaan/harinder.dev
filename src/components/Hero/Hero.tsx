@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { portfolioData } from "../../data/portfolio";
 import "./Hero.css";
 
@@ -19,18 +20,21 @@ const Hero = () => {
           <p className="hero-description">{portfolioData.description}</p>
 
           <div className="cta-buttons">
-            <button
+            <Button
+              size="lg"
+              className="px-6"
               onClick={() => scrollToSection("experience")}
-              className="btn btn-primary"
             >
               Experience
-            </button>
-            <button
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-border-strong px-6"
               onClick={() => scrollToSection("projects")}
-              className="btn"
             >
               View My Work
-            </button>
+            </Button>
           </div>
         </div>
       </div>
