@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Header.css";
@@ -18,7 +17,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavigation = (sectionId) => {
+  const handleNavigation = (sectionId: string) => {
     setMenuOpen(false);
     if (location.pathname !== "/") {
       navigate("/");

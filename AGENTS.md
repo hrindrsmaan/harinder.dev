@@ -19,7 +19,7 @@ There is no test framework configured — no test runner, no test files. `npm ru
 
 Static single-page portfolio: React 19 + TypeScript + Vite, no backend, no data fetching beyond one IP lookup. Packaged as an nginx image (`Dockerfile` + `nginx.conf`) for deployment (e.g. to GCP); Nginx provides the SPA fallback rewrite to `index.html`.
 
-`src/App.tsx` is the whole app shell: `FloatingElements` + `Header` + `<Routes>` + `Footer`. Two routes:
+`src/App.tsx` is the whole app shell: `Header` + `<Routes>` + `Footer`. Two routes:
 
 - `/` — the portfolio, composed of section components (`Hero`, `Experience`, `Education`, `Projects`, `Contact`) rendered in sequence
 - `/job-tracker` — `JobTrackerPage` (= `PasswordGate` wrapping `JobTracker`)
@@ -39,7 +39,7 @@ One styling trap, and one rule:
 
 ### TypeScript state
 
-`tsconfig.app.json` is `strict` with `noUnusedLocals`/`noUnusedParameters`, so unused variables break `npm run build`. Three components opt out with a top-of-file `// @ts-nocheck` (`Header`, `Hero`, `FloatingElements`) and two files are untyped `.js` (`hooks/useScrollEffect.js`; `utils/helpers.js` is empty). Prefer typing new code properly rather than extending `@ts-nocheck`.
+`tsconfig.app.json` is `strict` with `noUnusedLocals`/`noUnusedParameters`, so unused variables break `npm run build`. ESLint bans `@ts-nocheck` and `any`, so type new code properly.
 
 ### Feature-specific notes
 
