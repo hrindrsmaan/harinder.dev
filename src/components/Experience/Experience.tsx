@@ -2,8 +2,6 @@ import { experienceData } from "../../data/portfolio";
 import "./Experience.css";
 
 const Experience = () => {
-  const bulletStyle = "with-diamond";
-
   return (
     <section className="experience" id="experience">
       <div className="container">
@@ -40,7 +38,7 @@ const Experience = () => {
                     {experience.highlights.map((highlight, highlightIndex) => (
                       <div
                         key={highlightIndex}
-                        className={`highlight-item ${bulletStyle}`}
+                        className="highlight-item"
                       >
                         {highlight}
                       </div>

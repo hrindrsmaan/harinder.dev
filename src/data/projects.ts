@@ -8,7 +8,6 @@ export const projectsData = [
     liveUrl: "https://json-formatter-chi.vercel.app/json-formatter",
     codeUrl: "https://github.com/hrindrsmaan/json-formatter",
     icon: "🔧",
-    featured: true,
   },
   {
     id: 2,
@@ -19,6 +18,5 @@ export const projectsData = [
     liveUrl: "https://www.promptnest.info/",
     codeUrl: "https://github.com/hrindrsmaan/promptnest.info",
     icon: "🤖",
-    featured: true,
   },
 ];

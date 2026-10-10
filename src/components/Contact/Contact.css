@@ -18,106 +18,6 @@
   display: inline-block;
 }
 
-.contact-methods {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  align-items: center;
-}
-
-.contact-email {
-  font-size: 1rem;
-  color: var(--text-primary);
-  text-decoration: underline;
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border-strong);
-}
-
-.contact-email:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-}
-
-.contact-form {
-  border: 1px solid var(--border-color);
-  padding: 1.5rem;
-  text-align: left;
-  max-width: 600px;
-  margin: 0 auto;
-  background: var(--bg-secondary);
-}
-
-.contact-form h3 {
-  font-family: var(--font-sans);
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-  text-align: center;
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-input {
-  width: 100%;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-dark);
-  padding: 0.75rem;
-  color: var(--text-primary);
-  font-size: 1rem;
-  outline: none;
-  font-family: var(--font-sans);
-}
-
-.form-input::placeholder {
-  color: var(--text-muted);
-}
-
-.form-input:focus {
-  border-color: var(--border-strong);
-  background: var(--bg-tertiary);
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.form-submit {
-  width: 100%;
-  margin-top: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid var(--border-strong);
-  background: transparent;
-  color: var(--text-primary);
-  font-size: 1rem;
-  font-family: var(--font-sans);
-  cursor: pointer;
-}
-
-.form-submit:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-}
-
-.form-submit:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.submit-message {
-  margin-top: 1rem;
-  padding: 0.75rem;
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  text-align: center;
-  background: var(--bg-tertiary);
-}
-
 .social-links {
   display: flex;
   justify-content: center;
@@ -142,10 +42,6 @@
 @media (max-width: 768px) {
   .contact-title {
     font-size: 1.5rem;
-  }
-
-  .contact-email {
-    font-size: 0.9rem;
   }
 
   .social-links {

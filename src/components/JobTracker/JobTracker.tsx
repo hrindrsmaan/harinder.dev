@@ -21,7 +21,6 @@ interface Job {
   status: JobStatus;
   notes: string;
   dateApplied: string;
-  lastUpdated: string;
 }
 
 const statusConfig: Record<JobStatus, { label: string; color: string }> = {
@@ -81,15 +80,12 @@ const JobTracker = () => {
     e.preventDefault();
     if (!form.company || !form.dateApplied) return;
 
-    const now = new Date().toISOString();
     const dateApplied = new Date(form.dateApplied).toISOString();
 
     if (editingId) {
       setJobs((prev) =>
         prev.map((job) =>
-          job.id === editingId
-            ? { ...job, ...form, dateApplied, lastUpdated: now }
-            : job
+          job.id === editingId ? { ...job, ...form, dateApplied } : job
         )
       );
     } else {
@@ -99,7 +95,6 @@ const JobTracker = () => {
         status: form.status || "applied",
         notes: form.notes || "",
         dateApplied,
-        lastUpdated: now,
       };
       setJobs((prev) => [newJob, ...prev]);
     }
@@ -126,9 +121,7 @@ const JobTracker = () => {
   const handleStatusChange = (id: string, newStatus: JobStatus) => {
     setJobs((prev) =>
       prev.map((job) =>
-        job.id === id
-          ? { ...job, status: newStatus, lastUpdated: new Date().toISOString() }
-          : job
+        job.id === id ? { ...job, status: newStatus } : job
       )
     );
   };
@@ -140,7 +133,6 @@ const JobTracker = () => {
 
   const stats = {
     total: jobs.length,
-    applied: jobs.filter((j) => j.status === "applied").length,
     interview: jobs.filter((j) => j.status === "interview"),
     offer: jobs.filter((j) => j.status === "offer").length,
     rejected: jobs.filter((j) => j.status === "rejected").length,
@@ -156,7 +148,7 @@ const JobTracker = () => {
 
         <div className="stats-row">
           <div className="stat-card">
-            <div className="stat-icon blue">
+            <div className="stat-icon">
               <Briefcase size={20} />
             </div>
             <div className="stat-info">
@@ -165,7 +157,7 @@ const JobTracker = () => {
             </div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon yellow">
+            <div className="stat-icon">
               <Users size={20} />
             </div>
             <div className="stat-info">
@@ -174,7 +166,7 @@ const JobTracker = () => {
             </div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon green">
+            <div className="stat-icon">
               <Gift size={20} />
             </div>
             <div className="stat-info">
@@ -183,7 +175,7 @@ const JobTracker = () => {
             </div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon red">
+            <div className="stat-icon">
               <X size={20} />
             </div>
             <div className="stat-info">

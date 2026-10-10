@@ -30,29 +30,6 @@
   line-height: 1.15;
 }
 
-.hero-subtitle {
-  font-size: 1.25rem;
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
-}
-
-.tech-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 2rem;
-}
-
-.tech-tag {
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  background: var(--bg-secondary);
-  font-family: var(--font-sans);
-  padding: 0.25rem 0.75rem;
-  font-size: var(--text-xs);
-}
-
 .hero-description {
   font-size: var(--text-base);
   color: var(--text-secondary);
@@ -77,9 +54,5 @@
 
   .hero-title {
     font-size: 1.8rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1rem;
   }
 }

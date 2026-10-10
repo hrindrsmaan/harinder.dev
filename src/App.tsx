@@ -15,7 +15,7 @@ function App() {
   return (
     <Router>
       <CanonicalUrlManager />
-      <div className="App">
+      <div>
         <Header />
         <Routes>
           <Route

@@ -32,10 +32,7 @@ Static single-page portfolio: React 19 + TypeScript + Vite, no backend, no data 
 
 Every component is `src/components/<Name>/<Name>.tsx` plus a sibling `<Name>.css` imported by that `.tsx`. Plain CSS with hand-written semantic class names (`.job-card`, `.hero-title`) — no CSS modules, no `styled-components`, so **all class names share one global namespace**; prefix new ones with the component's name.
 
-One styling trap, and one rule:
-
-- `src/styles/variables.css` is the single source of truth for color and type: it is `@import`ed on the first line of `globals.css` (which `App.tsx` imports), and **every component stylesheet now references tokens only — no raw hex outside `variables.css`**. Keep it that way: a new color or size belongs in `:root`, not inline. Token set: `--bg-*`, `--text-*` (also `--text-base`/`--text-sm`/`--text-xs` sizes), `--border-color`/`--border-dark`/`--border-strong`, `--accent-color`, `--font-sans`/`--font-serif`/`--font-mono`, `--space-*`, `--max-width*`.
-- `@tailwindcss/vite` is in `vite.config.ts` and `package.json`, but no stylesheet ever does `@import "tailwindcss"`, so **utility classes silently do nothing**. Add the import before reaching for them.
+`src/styles/variables.css` is the single source of truth for color and type: it is `@import`ed on the first line of `globals.css` (which `App.tsx` imports), and **every component stylesheet now references tokens only — no raw hex outside `variables.css`**. Keep it that way: a new color or size belongs in `:root`, not inline. Token set: `--bg-*`, `--text-*` (also `--text-base`/`--text-sm`/`--text-xs` sizes), `--border-color`/`--border-dark`/`--border-strong`, `--accent-color`, `--font-sans`/`--font-serif`, `--max-width`.
 
 ### TypeScript state
 
@@ -43,10 +40,10 @@ One styling trap, and one rule:
 
 ### Feature-specific notes
 
-**Analytics** (`src/utils/analytics.ts`, called from `main.tsx`): fetches the visitor's IP from `api.ipify.org`, and skips injecting the gtag script for one hardcoded IP (the owner's, to avoid self-tracking). It is `async`, so GA loads a network round trip after mount and `window.gtag` is undefined before then. `trackEvent` is exported but currently unused.
+**Analytics** (`src/utils/analytics.ts`, called from `main.tsx`): fetches the visitor's IP from `api.ipify.org`, and skips injecting the gtag script for one hardcoded IP (the owner's, to avoid self-tracking). It is `async`, so GA loads a network round trip after mount.
 
 **JobTracker**: state is `localStorage` only, key `job-tracker-jobs`. `PasswordGate` is presentation-level privacy, not access control: it stores a non-cryptographic 32-bit hash under `job-tracker-password-hash` and the *first* visitor sets the password. The bundle and the data are fully client-side.
 
 ### SEO files
 
-`public/` is the only directory Vite copies to `dist/`. `robots.txt` exists both at the repo root and in `public/` (only the `public/` copy ships), and it advertises `https://harinder.dev/sitemap.xml` — but `sitemap.xml` sits at the repo root, so **it is not in `dist/` and 404s in production**. Move it to `public/` when touching SEO.
+`public/` is the only directory Vite copies to `dist/`. `public/robots.txt` advertises `https://harinder.dev/sitemap.xml`, but `sitemap.xml` sits at the repo root, so **it is not in `dist/` and 404s in production**. Move it to `public/` when touching SEO.

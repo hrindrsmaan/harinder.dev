@@ -67,21 +67,6 @@
   font-size: 0.9rem;
 }
 
-.footer-bottom-links {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.footer-bottom-links a {
-  color: var(--text-primary);
-  text-decoration: underline;
-  font-size: 0.9rem;
-}
-
-.footer-bottom-links a:hover {
-  color: var(--accent-color);
-}
-
 @media (max-width: 768px) {
   .footer-content {
     gap: 1rem;
@@ -94,9 +79,5 @@
   .footer-bottom {
     flex-direction: column;
     text-align: center;
-  }
-
-  .footer-bottom-links {
-    gap: 1rem;
   }
 }

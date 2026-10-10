@@ -2,8 +2,6 @@ import { educationData } from "../../data/portfolio";
 import "./Education.css";
 
 const Education = () => {
-  const bulletStyle = "with-diamond";
-
   return (
     <section className="education" id="education">
       <div className="container">
@@ -44,7 +42,7 @@ const Education = () => {
                       (achievement, achievementIndex) => (
                         <div
                           key={achievementIndex}
-                          className={`achievement-item ${bulletStyle}`}
+                          className="achievement-item"
                         >
                           {achievement}
                         </div>
