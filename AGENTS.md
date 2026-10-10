@@ -19,10 +19,9 @@ There is no test framework configured — no test runner, no test files. `npm ru
 
 Static single-page portfolio: React 19 + TypeScript + Vite, no backend, no data fetching beyond one IP lookup. Packaged as an nginx image (`Dockerfile` + `nginx.conf`) for deployment (e.g. to GCP); Nginx provides the SPA fallback rewrite to `index.html`.
 
-`src/App.tsx` is the whole app shell: `FloatingElements` + `Header` + `<Routes>` + `Footer`. Three routes:
+`src/App.tsx` is the whole app shell: `FloatingElements` + `Header` + `<Routes>` + `Footer`. Two routes:
 
 - `/` — the portfolio, composed of section components (`Hero`, `Experience`, `Education`, `Projects`, `Contact`) rendered in sequence
-- `/js-compiler` — `JSCompiler`
 - `/job-tracker` — `JobTrackerPage` (= `PasswordGate` wrapping `JobTracker`)
 
 **Content lives in `src/data/`, not in components.** `portfolio.ts` (bio, socials, experience, education) and `projects.ts` are plain exported objects/arrays that the section components map over. Copy edits, a new job, or a new project belong there.
@@ -45,8 +44,6 @@ One styling trap, and one rule:
 ### Feature-specific notes
 
 **Analytics** (`src/utils/analytics.ts`, called from `main.tsx`): fetches the visitor's IP from `api.ipify.org`, and skips injecting the gtag script for one hardcoded IP (the owner's, to avoid self-tracking). It is `async`, so GA loads a network round trip after mount and `window.gtag` is undefined before then. `trackEvent` is exported but currently unused.
-
-**JSCompiler**: runs user code in an `<iframe srcdoc>`, injecting a string of JS that overrides `console.log/error/warn/info` to append to a div. That payload is JS-inside-a-template-literal — escaping (`\\n`, backticks, `${}`) matters when editing it.
 
 **JobTracker**: state is `localStorage` only, key `job-tracker-jobs`. `PasswordGate` is presentation-level privacy, not access control: it stores a non-cryptographic 32-bit hash under `job-tracker-password-hash` and the *first* visitor sets the password. The bundle and the data are fully client-side.
 
