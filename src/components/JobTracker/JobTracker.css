@@ -137,6 +137,7 @@
 }
 
 .filter-group select {
+  font-size: 0.8333rem; /* UA control size; preflight would inherit 18px body */
   padding: 0.5rem;
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
