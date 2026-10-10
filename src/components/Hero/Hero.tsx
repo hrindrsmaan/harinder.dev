@@ -1,9 +1,8 @@
-// @ts-nocheck
 import { portfolioData } from "../../data/portfolio";
 import "./Hero.css";
 
 const Hero = () => {
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -28,7 +27,7 @@ const Hero = () => {
             </button>
             <button
               onClick={() => scrollToSection("projects")}
-              className="btn btn-secondary"
+              className="btn"
             >
               View My Work
             </button>

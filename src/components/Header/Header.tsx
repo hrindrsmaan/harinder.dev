@@ -1,24 +1,13 @@
-// @ts-nocheck
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleNavigation = (sectionId) => {
+  const handleNavigation = (sectionId: string) => {
     setMenuOpen(false);
     if (location.pathname !== "/") {
       navigate("/");
@@ -37,7 +26,7 @@ const Header = () => {
   };
 
   return (
-    <header className={`header ${isScrolled ? "scrolled" : ""}`}>
+    <header className="header">
       <nav className="nav">
         <div className="logo">harinder.dev</div>
         <button

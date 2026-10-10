@@ -85,20 +85,6 @@
   color: var(--accent-color);
 }
 
-.nav-tool-link {
-  background: none;
-  border: 1px solid var(--border-strong);
-  color: var(--text-primary);
-  text-decoration: none;
-  font-size: 0.9rem;
-  padding: 0.25rem 0.75rem;
-}
-
-.nav-tool-link:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-}
-
 @media (max-width: 768px) {
   .nav {
     padding: 1rem;

@@ -1,7 +1,6 @@
 export const portfolioData = {
   greeting: "Hi there! 👋",
   name: "I'm Harinder Singh",
-  title: "Software Engineer",
   description:
     "Senior full-stack engineer with 8+ years in fintech, building customer-facing platforms and GenAI features with React, Next.js, TypeScript, Node.js, and Python. I turn user problems and technical bottlenecks into shipped, measurable improvements, and I mentor engineers and help shape technical direction.",
   social: {
@@ -14,11 +13,8 @@ export const experienceData = [
   {
     company: "Scotiabank",
     position: "Senior Full Stack Developer",
-    description:
-      "Built and scaled AI-powered property intelligence dashboards and full-stack data flows, with multimodal search and subscription/billing.",
     duration: "Aug 2022 – Present",
     location: "Toronto, Canada",
-    logo: "S",
     highlights: [
       "Architected and delivered a micro-frontend platform and Node.js backend-for-frontend services impacting millions of banking customers, leading technical scope and execution across multiple quarters.",
       "Debugged critical production issues across distributed services using tracing, logging, and monitoring tools, reducing incident resolution time and improving system reliability.",
@@ -31,11 +27,8 @@ export const experienceData = [
   {
     company: "",
     position: "Full Stack Developer",
-    description:
-      "Developed and maintained enterprise web applications with a focus on data visualization and user experience.",
     duration: "Previous Experience",
     location: "Toronto, Canada",
-    logo: "M",
     highlights: [
       "Developed full-stack web applications which processed, analyzed and rendered data visually",
       "Planned, wrote, and debugged web applications and software with complete accuracy",

@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import FloatingElements from "./components/FloatingElements/FloatingElements";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import Experience from "./components/Experience/Experience";
@@ -16,8 +15,7 @@ function App() {
   return (
     <Router>
       <CanonicalUrlManager />
-      <div className="App">
-        <FloatingElements />
+      <div>
         <Header />
         <Routes>
           <Route

@@ -57,19 +57,6 @@
   font-size: 0.9rem;
 }
 
-.stat-icon.blue {
-  background: var(--bg-secondary);
-}
-.stat-icon.yellow {
-  background: var(--bg-secondary);
-}
-.stat-icon.green {
-  background: var(--bg-secondary);
-}
-.stat-icon.red {
-  background: var(--bg-secondary);
-}
-
 .stat-info {
   display: flex;
   flex-direction: column;
