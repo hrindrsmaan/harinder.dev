@@ -27,7 +27,7 @@
   --border: #e6e6e6; /* Hairline border */
   --input: #d9d9d9; /* Slightly stronger hairline */
   --ring: #0d0d0d;
-  --radius: 0; /* Editorial look: square corners everywhere */
+  --radius: 0px; /* Editorial look: square corners everywhere */
 
   --highlight: #cc0000; /* Red - kickers/accents */
   --strong: #000000; /* Pure black - hover/emphasis */
