@@ -1,112 +1,196 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 @import "./variables.css";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-highlight: var(--highlight);
+  --color-strong: var(--strong);
+  --color-border-strong: var(--border-strong);
+  --color-status-applied: var(--status-applied);
+  --color-status-interview: var(--status-interview);
+  --color-status-offer: var(--status-offer);
+  --color-status-rejected: var(--status-rejected);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  /* Editorial look: flat, no shadows */
+  --shadow-2xs: none;
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+  --shadow-2xl: none;
 }
 
-body {
-  font-family: var(--font-serif);
-  font-size: var(--text-base);
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+/* Element styles live in the base layer so Tailwind utilities (and shadcn
+   components) can override them. */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+  }
+
+  body {
+    font-family: var(--font-serif);
+    font-size: var(--fs-base);
+    background: var(--background);
+    color: var(--foreground);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Body copy is serif; controls stay sans like the rest of the UI chrome. */
+  button,
+  input,
+  select,
+  textarea,
+  label {
+    font-family: var(--font-sans);
+  }
+
+  /* Preflight makes controls inherit body line-height (1.6); keep the UA
+     default so legacy controls keep their height. Utilities still win. */
+  button,
+  input,
+  select,
+  textarea {
+    line-height: normal;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  a {
+    color: var(--foreground);
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: var(--highlight);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  section:last-of-type {
+    border-bottom: none;
+  }
+
+  @media (max-width: 768px) {
+    section {
+      padding: 2rem 0;
+    }
+  }
 }
 
-a {
-  color: var(--text-primary);
-  text-decoration: underline;
-}
-
-a:hover {
-  color: var(--accent-color);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin-bottom: 1rem;
-}
-
-p {
-  margin-bottom: 1rem;
-}
-
+/* Legacy shared classes, removed as sections migrate to shadcn + utilities */
+/* Unlayered on purpose: must beat Tailwind's own `container` utility. */
 .container {
   max-width: var(--max-width, 1200px);
   margin: 0 auto;
   padding: 0 2rem;
 }
 
-.section-title {
-  font-family: var(--font-sans);
-  font-size: 1.75rem;
-  text-align: center;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.5rem;
-  display: inline-block;
-  width: 100%;
-}
-
-.btn {
-  padding: 0.75rem 1.5rem;
-  border: 1px solid var(--border-strong);
-  background: transparent;
-  color: var(--text-primary);
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.btn:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-}
-
-.btn-primary {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-}
-
-.btn-primary:hover {
-  background: var(--text-strong);
-}
-
-/* Section styling */
-section {
-  padding: 3rem 0;
-  border-bottom: 1px solid var(--border-color);
-}
-
-section:last-of-type {
-  border-bottom: none;
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
   .container {
     padding: 0 1rem;
   }
+}
 
+@layer components {
   .section-title {
-    font-size: 1.5rem;
+    font-family: var(--font-sans);
+    font-size: 1.75rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    width: 100%;
   }
 
-  section {
-    padding: 2rem 0;
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn:hover {
+    background: var(--foreground);
+    color: var(--background);
+  }
+
+  .btn-primary {
+    background: var(--foreground);
+    color: var(--background);
+  }
+
+  .btn-primary:hover {
+    background: var(--strong);
+  }
+
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: 1.5rem;
+    }
   }
 }

@@ -30,9 +30,23 @@ Static single-page portfolio: React 19 + TypeScript + Vite, no backend, no data 
 
 ### Component and styling convention
 
-Every component is `src/components/<Name>/<Name>.tsx` plus a sibling `<Name>.css` imported by that `.tsx`. Plain CSS with hand-written semantic class names (`.job-card`, `.hero-title`) — no CSS modules, no `styled-components`, so **all class names share one global namespace**; prefix new ones with the component's name.
+**Mid-migration to Tailwind CSS v4 + shadcn/ui.** Phase 1 (tooling and theming) is done. Sections still use their legacy sibling `.css` files until they are migrated. The target state:
 
-`src/styles/variables.css` is the single source of truth for color and type: it is `@import`ed on the first line of `globals.css` (which `App.tsx` imports), and **every component stylesheet now references tokens only — no raw hex outside `variables.css`**. Keep it that way: a new color or size belongs in `:root`, not inline. Token set: `--bg-*`, `--text-*` (also `--text-base`/`--text-sm`/`--text-xs` sizes), `--border-color`/`--border-dark`/`--border-strong`, `--accent-color`, `--font-sans`/`--font-serif`, `--max-width`.
+- **UI components come only from the shadcn CLI** (`npx shadcn@latest add <name>`), never hand-written. They land in `src/components/ui/` (lowercase, CLI-owned). Restyle them through tokens or `className`, not by editing the generated files. Feature components compose them and keep the `src/components/<Name>/<Name>.tsx` layout.
+- Layout and typography use Tailwind utilities, with no new `.css` files. Use `cn()` from `@/lib/utils` (re-exported from the `cn` package) for conditional classes. The `@/*` alias points to `src/`.
+- `components.json`: Radix base, `vega` preset, neutral base color, CSS file `src/styles/globals.css`.
+
+Legacy `.css` class names share one global namespace, so prefix any you touch with the component's name.
+
+**Tokens:** `src/styles/variables.css` is the single source of truth for color, type and size. It holds the shadcn tokens (`--background`, `--primary`, `--muted-foreground`, `--border`, `--ring`…), plus `--highlight` (red accent), `--strong`, `--border-strong`, `--status-*`, `--fs-base/sm/xs` and `--max-width`. Fonts (`--font-sans`, `--font-serif`) live in its `@theme` block. `globals.css` maps the tokens to Tailwind colors in `@theme inline`, so utilities like `bg-muted`, `text-highlight` and `bg-status-offer/10` work. **No raw hex outside `variables.css`.** The old names (`--bg-*`, `--text-primary`, `--accent-color`, `--border-color`…) are temporary aliases for unmigrated CSS.
+
+**Intentional theme choices:** `--radius: 0` and every `--shadow-*` set to `none` (the editorial look), light mode only (the `.dark` variant exists but is never applied), serif body text with sans controls and headings.
+
+**Cascade gotchas:**
+- Never define `--text-*` in `:root`. That namespace is Tailwind's font-size scale, and overriding it silently resizes every shadcn component.
+- Global element styles must stay inside `@layer base`. Unlayered CSS beats Tailwind utilities.
+- `.container` is deliberately unlayered so it beats Tailwind's own `container` utility. Use `mx-auto max-w-(--max-width) px-8 max-md:px-4` in migrated code instead.
+- Form controls get `line-height: normal` in the base layer. Preflight would otherwise inherit the body's 1.6 and make legacy inputs taller.
 
 ### TypeScript state
 
