@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import {
   Briefcase,
   Plus,
@@ -13,6 +13,16 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import "./JobTracker.css";
 
@@ -63,6 +73,7 @@ const JobTracker = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<JobStatus | "all">("all");
+  const fieldId = useId();
   const [form, setForm] = useState<Partial<Job>>({
     company: "",
     status: "applied",
@@ -226,53 +237,68 @@ const JobTracker = () => {
 
           <div className="filter-group">
             <Filter size={16} />
-            <select
+            <Select
               value={filterStatus}
-              onChange={(e) =>
-                setFilterStatus(e.target.value as JobStatus | "all")
+              onValueChange={(value) =>
+                setFilterStatus(value as JobStatus | "all")
               }
             >
-              <option value="all">All Jobs</option>
-              {Object.entries(statusConfig).map(([key, config]) => (
-                <option key={key} value={key}>
-                  {config.label}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger
+                aria-label="Filter by status"
+                className="bg-secondary text-foreground"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Jobs</SelectItem>
+                {Object.entries(statusConfig).map(([key, config]) => (
+                  <SelectItem key={key} value={key}>
+                    {config.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
         {showForm && (
           <form onSubmit={handleSubmit} className="job-form">
             <div className="form-row">
-              <div className="form-group">
-                <label>Company</label>
-                <input
+              <Field className="gap-1.5">
+                <FieldLabel htmlFor={`${fieldId}-company`}>Company</FieldLabel>
+                <Input
+                  id={`${fieldId}-company`}
                   type="text"
                   value={form.company}
                   onChange={(e) => setForm({ ...form, company: e.target.value })}
                   placeholder="Company name"
                   required
                 />
-              </div>
-              <div className="form-group">
-                <label>Status</label>
-                <select
+              </Field>
+              <Field className="gap-1.5">
+                <FieldLabel htmlFor={`${fieldId}-status`}>Status</FieldLabel>
+                <Select
                   value={form.status}
-                  onChange={(e) =>
-                    setForm({ ...form, status: e.target.value as JobStatus })
+                  onValueChange={(value) =>
+                    setForm({ ...form, status: value as JobStatus })
                   }
                 >
-                  {Object.entries(statusConfig).map(([key, config]) => (
-                    <option key={key} value={key}>
-                      {config.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-group">
-                <label>Date Applied</label>
-                <input
+                  <SelectTrigger id={`${fieldId}-status`} className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(statusConfig).map(([key, config]) => (
+                      <SelectItem key={key} value={key}>
+                        {config.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </Field>
+              <Field className="gap-1.5">
+                <FieldLabel htmlFor={`${fieldId}-date`}>Date Applied</FieldLabel>
+                <Input
+                  id={`${fieldId}-date`}
                   type="date"
                   value={form.dateApplied}
                   onChange={(e) => {
@@ -284,17 +310,18 @@ const JobTracker = () => {
                   }}
                   required
                 />
-              </div>
+              </Field>
             </div>
-            <div className="form-group">
-              <label>Notes</label>
-              <textarea
+            <Field className="gap-1.5">
+              <FieldLabel htmlFor={`${fieldId}-notes`}>Notes</FieldLabel>
+              <Textarea
+                id={`${fieldId}-notes`}
                 value={form.notes}
                 onChange={(e) => setForm({ ...form, notes: e.target.value })}
                 placeholder="Notes..."
                 rows={3}
               />
-            </div>
+            </Field>
             <div className="form-actions">
               <Button
                 type="submit"
@@ -363,19 +390,26 @@ const JobTracker = () => {
                 {job.notes && <p className="job-notes">{job.notes}</p>}
 
                 <div className="job-footer">
-                  <select
+                  <Select
                     value={job.status}
-                    onChange={(e) =>
-                      handleStatusChange(job.id, e.target.value as JobStatus)
+                    onValueChange={(value) =>
+                      handleStatusChange(job.id, value as JobStatus)
                     }
-                    className="status-select"
                   >
-                    {Object.entries(statusConfig).map(([key, config]) => (
-                      <option key={key} value={key}>
-                        {config.label}
-                      </option>
-                    ))}
-                  </select>
+                    <SelectTrigger
+                      size="sm"
+                      aria-label={`Status for ${job.company}`}
+                    >
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.entries(statusConfig).map(([key, config]) => (
+                        <SelectItem key={key} value={key}>
+                          {config.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
             ))
