@@ -3,7 +3,7 @@ export const portfolioData = {
   name: "I'm Harinder Singh",
   title: "Software Engineer",
   description:
-    "Software engineer who builds systems that directly serve customers at scale. Identifies user problems and technical bottlenecks, designs and delivers APIs and platforms that solve them, debugs production issues to keep services running smoothly, and drives measurable improvements in performance and user experience. Mentors team members and shapes technical strategy to ensure long-term customer value.",
+    "Senior full-stack engineer with 8+ years in fintech, building customer-facing platforms and GenAI features with React, Next.js, TypeScript, Node.js, and Python. I turn user problems and technical bottlenecks into shipped, measurable improvements, and I mentor engineers and help shape technical direction.",
   social: {
     linkedin: "https://www.linkedin.com/in/harindermaan/",
     github: "https://github.com/hrindrsmaan",
