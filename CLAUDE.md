@@ -36,7 +36,7 @@ Every component is `src/components/<Name>/<Name>.tsx` plus a sibling `<Name>.css
 
 ### TypeScript state
 
-`tsconfig.app.json` is `strict` with `noUnusedLocals`/`noUnusedParameters`, so unused variables break `npm run build`. Prefer typing new code properly rather than adding `@ts-nocheck`.
+`tsconfig.app.json` is `strict` with `noUnusedLocals`/`noUnusedParameters`, so unused variables break `npm run build`. ESLint bans `@ts-nocheck` and `any`, so type new code properly.
 
 ### Feature-specific notes
 
