@@ -111,16 +111,6 @@
   color: var(--text-secondary);
 }
 
-.filter-group select {
-  font-size: 0.8333rem; /* UA control size; preflight would inherit 18px body */
-  padding: 0.5rem;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  cursor: pointer;
-  font-family: var(--font-sans);
-}
-
 .job-form {
   border: 1px solid var(--border-color);
   padding: 1.5rem;
@@ -133,42 +123,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-bottom: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.form-group label {
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 0.5rem;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-dark);
-  color: var(--text-primary);
-  font-size: 1rem;
-  font-family: var(--font-sans);
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--border-strong);
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 60px;
 }
 
 .form-actions {
@@ -240,16 +194,6 @@
 .job-footer {
   padding-top: 0.5rem;
   border-top: 1px solid var(--border-color);
-}
-
-.status-select {
-  padding: 0.3rem 0.5rem;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  font-size: 0.85rem;
-  cursor: pointer;
-  font-family: var(--font-sans);
 }
 
 @media (max-width: 700px) {

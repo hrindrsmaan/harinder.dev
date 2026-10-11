@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { Lock, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FieldError } from "@/components/ui/field";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 import "./PasswordGate.css";
 
 const HASH_KEY = "job-tracker-password-hash";
@@ -69,24 +76,31 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
         <h1>Job Tracker</h1>
         <p>Enter password to access</p>
 
-        <form onSubmit={storedHash ? handleLogin : handleSetup}>
-          <div className="password-input-wrapper">
-            <input
+        <form
+          onSubmit={storedHash ? handleLogin : handleSetup}
+          className="flex flex-col gap-4"
+        >
+          <InputGroup className="h-11 bg-card">
+            <InputGroupInput
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder={storedHash ? "Enter password" : "Set a password"}
+              aria-label="Password"
+              aria-invalid={!!error}
               autoFocus
             />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="toggle-password"
-            >
-              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-            </button>
-          </div>
-          {error && <p className="error-message">{error}</p>}
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                size="icon-xs"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff /> : <Eye />}
+              </InputGroupButton>
+            </InputGroupAddon>
+          </InputGroup>
+          {error && <FieldError>{error}</FieldError>}
           <Button
             type="submit"
             variant="outline"
