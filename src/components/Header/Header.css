@@ -5,7 +5,7 @@
   right: 0;
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border-strong);
-  z-index: 1000;
+  z-index: 40; /* below shadcn overlays/popovers (z-50) */
 }
 
 .nav {
@@ -28,107 +28,8 @@
   white-space: nowrap;
 }
 
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  z-index: 1001;
-}
-
-.hamburger-line {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--text-primary);
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.hamburger.open .hamburger-line:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.hamburger.open .hamburger-line:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.open .hamburger-line:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-.nav-links {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-  margin: 0;
-}
-
-.nav-links button,
-.nav-links a {
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 1rem;
-  font-family: var(--font-sans);
-  padding: 0;
-  white-space: nowrap;
-}
-
-.nav-links button:hover,
-.nav-links a:hover {
-  color: var(--accent-color);
-}
-
 @media (max-width: 768px) {
   .nav {
     padding: 1rem;
-  }
-
-  .hamburger {
-    display: flex;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    gap: 0;
-    background: var(--bg-primary);
-    border-bottom: 1px solid var(--border-strong);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-
-  .nav-links.open {
-    max-height: 300px;
-  }
-
-  .nav-links li {
-    border-top: 1px solid var(--border-color);
-  }
-
-  .nav-links button,
-  .nav-links a {
-    display: block;
-    width: 100%;
-    padding: 1rem 2rem;
-    text-align: left;
-    font-size: 1rem;
-    text-decoration: none;
-  }
-
-  .nav-links button:hover,
-  .nav-links a:hover {
-    background: var(--bg-secondary);
-    color: var(--accent-color);
   }
 }
