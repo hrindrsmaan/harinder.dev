@@ -48,6 +48,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { supabase } from "@/lib/supabase";
 import { cn } from "@/lib/utils";
 
 type JobStatus = "applied" | "interview" | "offer" | "rejected";
@@ -77,10 +78,24 @@ const statusConfig: Record<JobStatus, { label: string; className: string }> = {
   },
 };
 
-const STORAGE_KEY = "job-tracker-jobs";
+// Shape of a row in the Supabase `jobs` table (snake_case columns)
+interface JobRow {
+  id: string;
+  company: string;
+  status: string;
+  notes: string;
+  date_applied: string;
+}
 
-const generateId = () =>
-  `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+const JOB_COLUMNS = "id, company, status, notes, date_applied";
+
+const toJob = (row: JobRow): Job => ({
+  id: row.id,
+  company: row.company,
+  status: row.status as JobStatus,
+  notes: row.notes,
+  dateApplied: row.date_applied,
+});
 
 const formatDate = (date: string) =>
   new Date(date).toLocaleDateString("en-GB", {
@@ -90,10 +105,11 @@ const formatDate = (date: string) =>
   });
 
 const JobTracker = () => {
-  const [jobs, setJobs] = useState<Job[]>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
-  });
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<JobStatus | "all">("all");
@@ -110,8 +126,22 @@ const JobTracker = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(jobs));
-  }, [jobs]);
+    const loadJobs = async () => {
+      const { data, error } = await supabase
+        .from("jobs")
+        .select(JOB_COLUMNS)
+        .order("date_applied", { ascending: false });
+
+      if (error) {
+        setError(error.message);
+      } else {
+        setJobs(data.map(toJob));
+      }
+      setLoading(false);
+    };
+
+    loadJobs();
+  }, []);
 
   const resetForm = () => {
     setForm({
@@ -124,28 +154,42 @@ const JobTracker = () => {
     setEditingId(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Each write waits for Supabase, then updates the list from the row it
+  // returns, so the screen only ever shows what was actually saved.
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.company || !form.dateApplied) return;
 
-    const dateApplied = new Date(form.dateApplied).toISOString();
+    const values = {
+      company: form.company,
+      status: form.status || "applied",
+      notes: form.notes || "",
+      date_applied: form.dateApplied,
+    };
 
-    if (editingId) {
-      setJobs((prev) =>
-        prev.map((job) =>
-          job.id === editingId ? { ...job, ...form, dateApplied } : job
-        )
-      );
-    } else {
-      const newJob: Job = {
-        id: generateId(),
-        company: form.company!,
-        status: form.status || "applied",
-        notes: form.notes || "",
-        dateApplied,
-      };
-      setJobs((prev) => [newJob, ...prev]);
+    setSaving(true);
+    const { data, error } = editingId
+      ? await supabase
+          .from("jobs")
+          .update(values)
+          .eq("id", editingId)
+          .select(JOB_COLUMNS)
+          .single()
+      : await supabase.from("jobs").insert(values).select(JOB_COLUMNS).single();
+    setSaving(false);
+
+    if (error) {
+      setActionError(`Couldn't save job: ${error.message}`);
+      return;
     }
+
+    const saved = toJob(data);
+    setJobs((prev) =>
+      editingId
+        ? prev.map((job) => (job.id === saved.id ? saved : job))
+        : [saved, ...prev]
+    );
+    setActionError(null);
     resetForm();
   };
 
@@ -160,16 +204,42 @@ const JobTracker = () => {
     setShowForm(true);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
+    // .select() returns the deleted rows; RLS blocks deletes silently,
+    // so an empty result means nothing was removed
+    const { data, error } = await supabase
+      .from("jobs")
+      .delete()
+      .eq("id", id)
+      .select("id");
+
+    if (error || data.length === 0) {
+      setActionError(
+        `Couldn't delete job: ${error?.message ?? "no row was deleted"}`
+      );
+      return;
+    }
+
     setJobs((prev) => prev.filter((job) => job.id !== id));
+    setActionError(null);
   };
 
-  const handleStatusChange = (id: string, newStatus: JobStatus) => {
-    setJobs((prev) =>
-      prev.map((job) =>
-        job.id === id ? { ...job, status: newStatus } : job
-      )
-    );
+  const handleStatusChange = async (id: string, newStatus: JobStatus) => {
+    const { data, error } = await supabase
+      .from("jobs")
+      .update({ status: newStatus })
+      .eq("id", id)
+      .select(JOB_COLUMNS)
+      .single();
+
+    if (error) {
+      setActionError(`Couldn't update status: ${error.message}`);
+      return;
+    }
+
+    const saved = toJob(data);
+    setJobs((prev) => prev.map((job) => (job.id === id ? saved : job)));
+    setActionError(null);
   };
 
   const filteredJobs =
@@ -345,6 +415,7 @@ const JobTracker = () => {
                     type="submit"
                     variant="outline"
                     className="border-border-strong"
+                    disabled={saving}
                   >
                     <Check />
                     {editingId ? "Update" : "Add Job"}
@@ -355,8 +426,18 @@ const JobTracker = () => {
           </Card>
         )}
 
+        {actionError && (
+          <p className="mb-4 text-center text-destructive">{actionError}</p>
+        )}
+
         <div className="flex flex-col gap-4">
-          {filteredJobs.length === 0 ? (
+          {loading ? (
+            <p className="text-center text-muted-foreground">Loading jobs…</p>
+          ) : error ? (
+            <p className="text-center text-destructive">
+              Couldn't load jobs: {error}
+            </p>
+          ) : filteredJobs.length === 0 ? (
             <Empty className="border border-solid bg-secondary p-8">
               <EmptyHeader>
                 <EmptyMedia>
