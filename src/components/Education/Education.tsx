@@ -1,4 +1,7 @@
+import { Fragment } from "react";
 import { educationData } from "../../data/portfolio";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import "./Education.css";
 
 const Education = () => {
@@ -9,7 +12,8 @@ const Education = () => {
 
         <div className="education-timeline">
           {educationData.map((education, index) => (
-            <div key={index} className="education-card">
+            <Fragment key={index}>
+              {index > 0 && <Separator className="mt-8 mb-0 max-md:mt-6" />}
               <div className="education-layout">
                 <div className="institution-side">
                   <div className="institution-header-row">
@@ -25,14 +29,20 @@ const Education = () => {
                     </div>
                   )}
                   <div className="info-cards">
-                    <div className="info-card duration-card">
-                      <span className="duration-icon">📅</span>
-                      <span className="card-content">{education.duration}</span>
-                    </div>
-                    <div className="info-card location-card">
-                      <span className="location-icon">📍</span>
-                      <span className="card-content">{education.location}</span>
-                    </div>
+                    <Badge
+                      variant="outline"
+                      className="h-auto w-full justify-start gap-2 border-l-3 bg-card px-2.5 py-1 text-[0.85rem] font-normal text-foreground max-md:min-w-[140px] max-md:flex-1 max-md:px-2 max-md:text-[0.8rem] border-l-border-strong"
+                    >
+                      <span aria-hidden="true">📅</span>
+                      {education.duration}
+                    </Badge>
+                    <Badge
+                      variant="outline"
+                      className="h-auto w-full justify-start gap-2 border-l-3 bg-card px-2.5 py-1 text-[0.85rem] font-normal text-foreground max-md:min-w-[140px] max-md:flex-1 max-md:px-2 max-md:text-[0.8rem] border-l-muted-foreground"
+                    >
+                      <span aria-hidden="true">📍</span>
+                      {education.location}
+                    </Badge>
                   </div>
                 </div>
 
@@ -51,7 +61,7 @@ const Education = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </Fragment>
           ))}
         </div>
       </div>
