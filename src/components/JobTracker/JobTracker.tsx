@@ -11,8 +11,33 @@ import {
   Filter,
   Calendar,
 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+} from "@/components/ui/empty";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
@@ -137,9 +162,7 @@ const JobTracker = () => {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm("Delete this job?")) {
-      setJobs((prev) => prev.filter((job) => job.id !== id));
-    }
+    setJobs((prev) => prev.filter((job) => job.id !== id));
   };
 
   const handleStatusChange = (id: string, newStatus: JobStatus) => {
@@ -171,55 +194,65 @@ const JobTracker = () => {
         </div>
 
         <div className="stats-row">
-          <div className="stat-card">
-            <div className="stat-icon">
-              <Briefcase size={20} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-value">{stats.total}</span>
-              <span className="stat-label">Total Applied</span>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">
-              <Users size={20} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-value">{stats.interview.length}</span>
-              <span className="stat-label">Interviews</span>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">
-              <Gift size={20} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-value">{stats.offer}</span>
-              <span className="stat-label">Offers</span>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">
-              <X size={20} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-value">{stats.rejected}</span>
-              <span className="stat-label">Rejected</span>
-            </div>
-          </div>
+          <Card size="sm" className="bg-secondary">
+            <CardContent className="flex flex-row items-center gap-3">
+              <div className="stat-icon">
+                <Briefcase size={20} />
+              </div>
+              <div className="stat-info">
+                <span className="stat-value">{stats.total}</span>
+                <span className="stat-label">Total Applied</span>
+              </div>
+            </CardContent>
+          </Card>
+          <Card size="sm" className="bg-secondary">
+            <CardContent className="flex flex-row items-center gap-3">
+              <div className="stat-icon">
+                <Users size={20} />
+              </div>
+              <div className="stat-info">
+                <span className="stat-value">{stats.interview.length}</span>
+                <span className="stat-label">Interviews</span>
+              </div>
+            </CardContent>
+          </Card>
+          <Card size="sm" className="bg-secondary">
+            <CardContent className="flex flex-row items-center gap-3">
+              <div className="stat-icon">
+                <Gift size={20} />
+              </div>
+              <div className="stat-info">
+                <span className="stat-value">{stats.offer}</span>
+                <span className="stat-label">Offers</span>
+              </div>
+            </CardContent>
+          </Card>
+          <Card size="sm" className="bg-secondary">
+            <CardContent className="flex flex-row items-center gap-3">
+              <div className="stat-icon">
+                <X size={20} />
+              </div>
+              <div className="stat-info">
+                <span className="stat-value">{stats.rejected}</span>
+                <span className="stat-label">Rejected</span>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {stats.interview.length > 0 && (
-          <div className="interview-banner">
-            <div className="interview-label">Interviewing With</div>
-            <div className="interview-companies">
-              {stats.interview.map((job) => (
-                <Badge key={job.id} variant="outline">
-                  {job.company}
-                </Badge>
-              ))}
-            </div>
-          </div>
+          <Card size="sm" className="mb-6 bg-secondary">
+            <CardContent>
+              <div className="interview-label">Interviewing With</div>
+              <div className="interview-companies">
+                {stats.interview.map((job) => (
+                  <Badge key={job.id} variant="outline">
+                    {job.company}
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         )}
 
         <div className="toolbar">
@@ -337,20 +370,24 @@ const JobTracker = () => {
 
         <div className="jobs-list">
           {filteredJobs.length === 0 ? (
-            <div className="empty-state">
-              <Briefcase size={40} />
-              <p>
-                {filterStatus === "all"
-                  ? "No jobs yet. Click 'Add Job' to start tracking!"
-                  : `No "${statusConfig[filterStatus as JobStatus]?.label}" jobs`}
-              </p>
-            </div>
+            <Empty className="border border-solid bg-secondary p-8">
+              <EmptyHeader>
+                <EmptyMedia>
+                  <Briefcase size={40} />
+                </EmptyMedia>
+                <EmptyDescription>
+                  {filterStatus === "all"
+                    ? "No jobs yet. Click 'Add Job' to start tracking!"
+                    : `No "${statusConfig[filterStatus as JobStatus]?.label}" jobs`}
+                </EmptyDescription>
+              </EmptyHeader>
+            </Empty>
           ) : (
             filteredJobs.map((job) => (
-              <div key={job.id} className="job-card">
-                <div className="job-top">
-                  <div className="job-info">
-                    <h3>{job.company}</h3>
+              <Card key={job.id} size="sm" className="gap-3 bg-secondary">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3">
+                    <h3 className="m-0 text-base font-bold">{job.company}</h3>
                     <Badge
                       variant="outline"
                       className={cn(
@@ -360,8 +397,8 @@ const JobTracker = () => {
                     >
                       {statusConfig[job.status].label}
                     </Badge>
-                  </div>
-                  <div className="job-actions">
+                  </CardTitle>
+                  <CardAction className="flex gap-2">
                     <Button
                       variant="outline"
                       size="icon-sm"
@@ -370,26 +407,48 @@ const JobTracker = () => {
                     >
                       <Edit2 />
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="icon-sm"
-                      aria-label={`Delete ${job.company}`}
-                      className="hover:text-destructive"
-                      onClick={() => handleDelete(job.id)}
-                    >
-                      <Trash2 />
-                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          size="icon-sm"
+                          aria-label={`Delete ${job.company}`}
+                          className="hover:text-destructive"
+                        >
+                          <Trash2 />
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Delete this job?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            {job.company} will be removed from your tracker.
+                            This can't be undone.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            variant="destructive"
+                            onClick={() => handleDelete(job.id)}
+                          >
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </CardAction>
+                </CardHeader>
+
+                <CardContent>
+                  <div className="job-meta">
+                    <Calendar size={13} />
+                    <span>{formatDate(job.dateApplied)}</span>
                   </div>
-                </div>
+                  {job.notes && <p className="job-notes">{job.notes}</p>}
+                </CardContent>
 
-                <div className="job-meta">
-                  <Calendar size={13} />
-                  <span>{formatDate(job.dateApplied)}</span>
-                </div>
-
-                {job.notes && <p className="job-notes">{job.notes}</p>}
-
-                <div className="job-footer">
+                <CardFooter className="border-t pt-3">
                   <Select
                     value={job.status}
                     onValueChange={(value) =>
@@ -410,8 +469,8 @@ const JobTracker = () => {
                       ))}
                     </SelectContent>
                   </Select>
-                </div>
-              </div>
+                </CardFooter>
+              </Card>
             ))
           )}
         </div>
