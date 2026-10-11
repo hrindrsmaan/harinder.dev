@@ -49,7 +49,6 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import "./JobTracker.css";
 
 type JobStatus = "applied" | "interview" | "offer" | "rejected";
 
@@ -185,66 +184,50 @@ const JobTracker = () => {
     rejected: jobs.filter((j) => j.status === "rejected").length,
   };
 
+  const statCards = [
+    { label: "Total Applied", value: stats.total, Icon: Briefcase },
+    { label: "Interviews", value: stats.interview.length, Icon: Users },
+    { label: "Offers", value: stats.offer, Icon: Gift },
+    { label: "Rejected", value: stats.rejected, Icon: X },
+  ];
+
   return (
-    <section className="job-tracker-section">
-      <div className="job-tracker-container">
-        <div className="tracker-header">
-          <h1>Job Tracker</h1>
-          <p>Track your job search progress and applications</p>
+    <section className="min-h-screen bg-background px-4 pt-20 pb-8">
+      <div className="mx-auto max-w-(--max-width)">
+        <div className="mb-8 text-center">
+          <h1 className="mb-2 inline-block border-b pb-2 text-[1.8rem] text-foreground max-[701px]:text-[1.4rem]">
+            Job Tracker
+          </h1>
+          <p className="text-[1rem] text-muted-foreground">
+            Track your job search progress and applications
+          </p>
         </div>
 
-        <div className="stats-row">
-          <Card size="sm" className="bg-secondary">
-            <CardContent className="flex flex-row items-center gap-3">
-              <div className="stat-icon">
-                <Briefcase size={20} />
-              </div>
-              <div className="stat-info">
-                <span className="stat-value">{stats.total}</span>
-                <span className="stat-label">Total Applied</span>
-              </div>
-            </CardContent>
-          </Card>
-          <Card size="sm" className="bg-secondary">
-            <CardContent className="flex flex-row items-center gap-3">
-              <div className="stat-icon">
-                <Users size={20} />
-              </div>
-              <div className="stat-info">
-                <span className="stat-value">{stats.interview.length}</span>
-                <span className="stat-label">Interviews</span>
-              </div>
-            </CardContent>
-          </Card>
-          <Card size="sm" className="bg-secondary">
-            <CardContent className="flex flex-row items-center gap-3">
-              <div className="stat-icon">
-                <Gift size={20} />
-              </div>
-              <div className="stat-info">
-                <span className="stat-value">{stats.offer}</span>
-                <span className="stat-label">Offers</span>
-              </div>
-            </CardContent>
-          </Card>
-          <Card size="sm" className="bg-secondary">
-            <CardContent className="flex flex-row items-center gap-3">
-              <div className="stat-icon">
-                <X size={20} />
-              </div>
-              <div className="stat-info">
-                <span className="stat-value">{stats.rejected}</span>
-                <span className="stat-label">Rejected</span>
-              </div>
-            </CardContent>
-          </Card>
+        <div className="mb-6 grid grid-cols-4 gap-4 max-[701px]:grid-cols-2 max-[401px]:grid-cols-1">
+          {statCards.map(({ label, value, Icon }) => (
+            <Card key={label} size="sm" className="bg-secondary">
+              <CardContent className="flex flex-row items-center gap-3">
+                <div className="flex size-9 items-center justify-center border text-foreground">
+                  <Icon size={20} />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[1.3rem] leading-[1.2] font-bold text-foreground">
+                    {value}
+                  </span>
+                  <span className="text-[0.75rem] text-muted-foreground">
+                    {label}
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         {stats.interview.length > 0 && (
           <Card size="sm" className="mb-6 bg-secondary">
             <CardContent>
-              <div className="interview-label">Interviewing With</div>
-              <div className="interview-companies">
+              <div className="mb-2 text-[0.8rem] tracking-[0.5px] text-muted-foreground uppercase">Interviewing With</div>
+              <div className="flex flex-wrap gap-2">
                 {stats.interview.map((job) => (
                   <Badge key={job.id} variant="outline">
                     {job.company}
@@ -255,7 +238,7 @@ const JobTracker = () => {
           </Card>
         )}
 
-        <div className="toolbar">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4 max-[401px]:flex-col max-[401px]:items-stretch">
           <Button
             variant="outline"
             className="border-border-strong"
@@ -268,7 +251,7 @@ const JobTracker = () => {
             {showForm ? "Cancel" : "Add Job"}
           </Button>
 
-          <div className="filter-group">
+          <div className="flex items-center gap-2 text-muted-foreground max-[401px]:justify-center">
             <Filter size={16} />
             <Select
               value={filterStatus}
@@ -295,80 +278,84 @@ const JobTracker = () => {
         </div>
 
         {showForm && (
-          <form onSubmit={handleSubmit} className="job-form">
-            <div className="form-row">
-              <Field className="gap-1.5">
-                <FieldLabel htmlFor={`${fieldId}-company`}>Company</FieldLabel>
-                <Input
-                  id={`${fieldId}-company`}
-                  type="text"
-                  value={form.company}
-                  onChange={(e) => setForm({ ...form, company: e.target.value })}
-                  placeholder="Company name"
-                  required
-                />
-              </Field>
-              <Field className="gap-1.5">
-                <FieldLabel htmlFor={`${fieldId}-status`}>Status</FieldLabel>
-                <Select
-                  value={form.status}
-                  onValueChange={(value) =>
-                    setForm({ ...form, status: value as JobStatus })
-                  }
-                >
-                  <SelectTrigger id={`${fieldId}-status`} className="w-full">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Object.entries(statusConfig).map(([key, config]) => (
-                      <SelectItem key={key} value={key}>
-                        {config.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </Field>
-              <Field className="gap-1.5">
-                <FieldLabel htmlFor={`${fieldId}-date`}>Date Applied</FieldLabel>
-                <Input
-                  id={`${fieldId}-date`}
-                  type="date"
-                  value={form.dateApplied}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    const date = new Date(value);
-                    if (!isNaN(date.getTime())) {
-                      setForm({ ...form, dateApplied: value });
-                    }
-                  }}
-                  required
-                />
-              </Field>
-            </div>
-            <Field className="gap-1.5">
-              <FieldLabel htmlFor={`${fieldId}-notes`}>Notes</FieldLabel>
-              <Textarea
-                id={`${fieldId}-notes`}
-                value={form.notes}
-                onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                placeholder="Notes..."
-                rows={3}
-              />
-            </Field>
-            <div className="form-actions">
-              <Button
-                type="submit"
-                variant="outline"
-                className="border-border-strong"
-              >
-                <Check />
-                {editingId ? "Update" : "Add Job"}
-              </Button>
-            </div>
-          </form>
+          <Card className="mb-6 bg-secondary">
+            <CardContent>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4 grid grid-cols-3 gap-4 max-[701px]:grid-cols-1">
+                  <Field className="gap-1.5">
+                    <FieldLabel htmlFor={`${fieldId}-company`}>Company</FieldLabel>
+                    <Input
+                      id={`${fieldId}-company`}
+                      type="text"
+                      value={form.company}
+                      onChange={(e) => setForm({ ...form, company: e.target.value })}
+                      placeholder="Company name"
+                      required
+                    />
+                  </Field>
+                  <Field className="gap-1.5">
+                    <FieldLabel htmlFor={`${fieldId}-status`}>Status</FieldLabel>
+                    <Select
+                      value={form.status}
+                      onValueChange={(value) =>
+                        setForm({ ...form, status: value as JobStatus })
+                      }
+                    >
+                      <SelectTrigger id={`${fieldId}-status`} className="w-full">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.entries(statusConfig).map(([key, config]) => (
+                          <SelectItem key={key} value={key}>
+                            {config.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </Field>
+                  <Field className="gap-1.5">
+                    <FieldLabel htmlFor={`${fieldId}-date`}>Date Applied</FieldLabel>
+                    <Input
+                      id={`${fieldId}-date`}
+                      type="date"
+                      value={form.dateApplied}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        const date = new Date(value);
+                        if (!isNaN(date.getTime())) {
+                          setForm({ ...form, dateApplied: value });
+                        }
+                      }}
+                      required
+                    />
+                  </Field>
+                </div>
+                <Field className="gap-1.5">
+                  <FieldLabel htmlFor={`${fieldId}-notes`}>Notes</FieldLabel>
+                  <Textarea
+                    id={`${fieldId}-notes`}
+                    value={form.notes}
+                    onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                    placeholder="Notes..."
+                    rows={3}
+                  />
+                </Field>
+                <div className="flex justify-end">
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    className="border-border-strong"
+                  >
+                    <Check />
+                    {editingId ? "Update" : "Add Job"}
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
         )}
 
-        <div className="jobs-list">
+        <div className="flex flex-col gap-4">
           {filteredJobs.length === 0 ? (
             <Empty className="border border-solid bg-secondary p-8">
               <EmptyHeader>
@@ -441,11 +428,11 @@ const JobTracker = () => {
                 </CardHeader>
 
                 <CardContent>
-                  <div className="job-meta">
+                  <div className="flex items-center gap-2 text-[0.85rem] text-muted-foreground">
                     <Calendar size={13} />
                     <span>{formatDate(job.dateApplied)}</span>
                   </div>
-                  {job.notes && <p className="job-notes">{job.notes}</p>}
+                  {job.notes && <p className="m-0 text-[0.9rem] leading-[1.5] text-foreground">{job.notes}</p>}
                 </CardContent>
 
                 <CardFooter className="border-t pt-3">

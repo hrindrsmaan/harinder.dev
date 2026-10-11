@@ -8,7 +8,7 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import "./PasswordGate.css";
+import { Card } from "@/components/ui/card";
 
 const HASH_KEY = "job-tracker-password-hash";
 
@@ -68,13 +68,15 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   }
 
   return (
-    <section className="password-gate-section">
-      <div className="password-gate-container">
-        <div className="lock-icon">
+    <section className="flex min-h-screen items-center justify-center bg-background pt-20 max-[421px]:px-4 max-[421px]:pt-16">
+      <Card className="w-full max-w-[380px] gap-0 bg-secondary p-8 text-center text-(length:--fs-base) max-[421px]:p-6">
+        <div className="mx-auto mb-6 flex size-[72px] items-center justify-center border text-foreground max-[421px]:size-14">
           <Lock size={48} />
         </div>
-        <h1>Job Tracker</h1>
-        <p>Enter password to access</p>
+        <h1 className="mb-2 text-[1.5rem] break-words text-foreground max-[421px]:text-[1.25rem]">
+          Job Tracker
+        </h1>
+        <p className="mb-6 text-muted-foreground">Enter password to access</p>
 
         <form
           onSubmit={storedHash ? handleLogin : handleSetup}
@@ -110,7 +112,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             {storedHash ? "Unlock" : "Set Password"}
           </Button>
         </form>
-      </div>
+      </Card>
     </section>
   );
 };

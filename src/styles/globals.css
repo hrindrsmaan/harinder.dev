@@ -1,9 +1,60 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "./variables.css";
 
 @custom-variant dark (&:is(.dark *));
+
+/* Single source of truth for design tokens. No raw colors outside this file. */
+
+@theme {
+  /* The site's mobile layout covers widths up to and including 768px
+     (iPad portrait), so `md:` starts at 769px rather than Tailwind's 768. */
+  --breakpoint-md: 769px;
+
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Editorial Light Color Palette, as shadcn/ui tokens */
+  --background: #ffffff; /* White - main background */
+  --foreground: #0d0d0d; /* Near black - main text */
+  --card: #fafafa; /* Card backgrounds */
+  --card-foreground: #0d0d0d;
+  --popover: #ffffff;
+  --popover-foreground: #0d0d0d;
+  --primary: #0d0d0d;
+  --primary-foreground: #ffffff;
+  --secondary: #f7f7f7; /* Off-white - raised sections */
+  --secondary-foreground: #0d0d0d;
+  --muted: #f7f7f7;
+  --muted-foreground: #666666; /* Gray - captions/subtitles */
+  --accent: #f7f7f7; /* shadcn hover fill, NOT the red accent */
+  --accent-foreground: #0d0d0d;
+  --destructive: #dc2626;
+  --border: #e6e6e6; /* Hairline border */
+  --input: #d9d9d9; /* Slightly stronger hairline */
+  --ring: #0d0d0d;
+  --radius: 0px; /* Editorial look: square corners everywhere */
+
+  --highlight: #cc0000; /* Red - kickers/accents */
+  --border-strong: #0d0d0d; /* Rules that read as structure */
+
+  /* Job tracker status colors */
+  --status-applied: #1d4ed8;
+  --status-interview: #b45309;
+  --status-offer: #047857;
+  --status-rejected: #dc2626;
+
+  /* Font sizes. Not --text-*: that namespace belongs to Tailwind. */
+  --fs-base: 1.125rem; /* 18px - body copy */
+  --fs-xs: 0.8125rem; /* 13px - kickers/meta */
+
+  /* Max widths */
+  --max-width: 1200px;
+}
 
 @theme inline {
   --font-heading: var(--font-sans);
@@ -26,7 +77,6 @@
   --color-foreground: var(--foreground);
   --color-background: var(--background);
   --color-highlight: var(--highlight);
-  --color-strong: var(--strong);
   --color-border-strong: var(--border-strong);
   --color-status-applied: var(--status-applied);
   --color-status-interview: var(--status-interview);
@@ -81,8 +131,8 @@
     font-family: var(--font-sans);
   }
 
-  /* Preflight makes controls inherit body line-height (1.6); keep the UA
-     default so legacy controls keep their height. Utilities still win. */
+  /* Preflight makes controls inherit the body's 1.6 line-height; keep the UA
+     default. Components that set a text size utility still win. */
   button,
   input,
   select,
@@ -133,39 +183,6 @@
   @media (max-width: 768px) {
     section {
       padding: 2rem 0;
-    }
-  }
-}
-
-/* Legacy shared classes, removed as sections migrate to shadcn + utilities */
-/* Unlayered on purpose: must beat Tailwind's own `container` utility. */
-.container {
-  max-width: var(--max-width, 1200px);
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 0 1rem;
-  }
-}
-
-@layer components {
-  .section-title {
-    font-family: var(--font-sans);
-    font-size: 1.75rem;
-    text-align: center;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 0.5rem;
-    display: inline-block;
-    width: 100%;
-  }
-
-  @media (max-width: 768px) {
-    .section-title {
-      font-size: 1.5rem;
     }
   }
 }

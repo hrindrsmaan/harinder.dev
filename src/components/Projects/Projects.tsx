@@ -9,15 +9,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { projectsData } from "../../data/projects";
-import "./Projects.css";
 
 const Projects = () => {
   return (
-    <section className="projects" id="projects">
-      <div className="container">
-        <h2 className="section-title">Featured Projects</h2>
+    <section id="projects" className="bg-secondary py-12">
+      <div className="mx-auto max-w-(--max-width) px-8 max-md:px-4">
+        <h2 className="mb-8 inline-block w-full border-b pb-2 text-center text-[1.75rem] max-md:text-[1.5rem]">Featured Projects</h2>
 
-        <div className="projects-grid">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 max-md:grid-cols-1">
           {projectsData.map((project) => (
             <Card key={project.id} className="gap-4 bg-card">
               <CardHeader className="gap-4">
