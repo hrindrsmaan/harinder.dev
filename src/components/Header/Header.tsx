@@ -7,7 +7,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import "./Header.css";
 
 const navItems = [
   { id: "home", label: "Home" },
@@ -40,10 +39,10 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-border-strong bg-background">
       <Collapsible open={menuOpen} onOpenChange={setMenuOpen}>
-        <nav className="nav">
-          <div className="logo">harinder.dev</div>
+        <nav className="relative mx-auto flex max-w-(--max-width) items-center justify-between px-8 py-4 max-md:p-4">
+          <div className="font-sans text-[1.2rem] font-bold tracking-[-0.02em] whitespace-nowrap">harinder.dev</div>
           <CollapsibleTrigger asChild>
             <Button
               variant="ghost"

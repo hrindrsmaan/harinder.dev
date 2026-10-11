@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { portfolioData } from "../../data/portfolio";
-import "./Hero.css";
 
 const Hero = () => {
   const scrollToSection = (sectionId: string) => {
@@ -11,15 +10,18 @@ const Hero = () => {
   };
 
   return (
-    <section className="hero" id="home">
-      <div className="container">
-        <div className="hero-content">
-          <div className="hero-greeting">{portfolioData.greeting}</div>
-          <h1 className="hero-title">{portfolioData.name}</h1>
+    <section
+      id="home"
+      className="flex min-h-[60vh] items-center justify-center pt-[60px] max-md:min-h-auto max-md:px-4 max-md:pt-20 max-md:pb-8"
+    >
+      <div className="mx-auto max-w-(--max-width) px-8 max-md:px-4">
+        <div className="max-w-(--max-width) text-center">
+          <div className="mb-4 font-sans text-(length:--fs-xs) font-bold tracking-[0.06em] text-highlight uppercase">{portfolioData.greeting}</div>
+          <h1 className="text-[clamp(2rem,5vw,2.5rem)] max-md:text-[1.8rem]">{portfolioData.name}</h1>
 
-          <p className="hero-description">{portfolioData.description}</p>
+          <p className="mx-auto mb-8 max-w-[600px] text-(length:--fs-base) text-muted-foreground">{portfolioData.description}</p>
 
-          <div className="cta-buttons">
+          <div className="flex flex-wrap justify-center gap-4">
             <Button
               size="lg"
               className="px-6"

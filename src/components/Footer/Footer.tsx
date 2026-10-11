@@ -1,43 +1,42 @@
 import { Separator } from "@/components/ui/separator";
-import "./Footer.css";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="footer">
-      <div className="container">
-        <div className="footer-content">
-          <div className="footer-logo">
-            <div className="logo">harinder.dev</div>
-            <p className="footer-tagline">
+    <footer className="mt-8 border-t border-border-strong py-8">
+      <div className="mx-auto max-w-(--max-width) px-8 max-md:px-4">
+        <div className="flex flex-col gap-6 max-md:gap-4">
+          <div>
+            <div className="font-sans text-[1.2rem] font-bold tracking-[-0.02em] whitespace-nowrap">harinder.dev</div>
+            <p className="text-muted-foreground italic">
               Crafting digital experiences with passion and precision
             </p>
           </div>
 
-          <div className="footer-links">
-            <div className="footer-section">
-              <h4>Navigation</h4>
+          <div className="flex flex-wrap gap-8 max-md:gap-6">
+            <div>
+              <h4 className="mb-2 text-[1rem]">Navigation</h4>
               <ul>
-                <li>
+                <li className="mb-1">
                   <a href="#home">Home</a>
                 </li>
-                <li>
+                <li className="mb-1">
                   <a href="#experience">Experience</a>
                 </li>
-                <li>
+                <li className="mb-1">
                   <a href="#projects">Projects</a>
                 </li>
-                <li>
+                <li className="mb-1">
                   <a href="#contact">Contact</a>
                 </li>
               </ul>
             </div>
 
-            <div className="footer-section">
-              <h4>Connect</h4>
+            <div>
+              <h4 className="mb-2 text-[1rem]">Connect</h4>
               <ul>
-                <li>
+                <li className="mb-1">
                   <a
                     href="https://www.linkedin.com/in/harindermaan/"
                     target="_blank"
@@ -46,7 +45,7 @@ const Footer = () => {
                     LinkedIn
                   </a>
                 </li>
-                <li>
+                <li className="mb-1">
                   <a
                     href="https://github.com/hrindrsmaan"
                     target="_blank"
@@ -58,21 +57,21 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="footer-section">
-              <h4>Technologies</h4>
+            <div>
+              <h4 className="mb-2 text-[1rem]">Technologies</h4>
               <ul>
-                <li>React & Next.js</li>
-                <li>TypeScript</li>
-                <li>Node.js</li>
-                <li>AI Integration</li>
+                <li className="mb-1">React & Next.js</li>
+                <li className="mb-1">TypeScript</li>
+                <li className="mb-1">Node.js</li>
+                <li className="mb-1">AI Integration</li>
               </ul>
             </div>
           </div>
         </div>
 
         <Separator />
-        <div className="footer-bottom">
-          <p>
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-6 max-md:flex-col max-md:text-center">
+          <p className="text-[0.9rem] text-muted-foreground">
             &copy; {currentYear} Harinder Singh. Crafted with passion in
             Toronto.
           </p>
