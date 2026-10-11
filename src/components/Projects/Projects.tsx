@@ -1,5 +1,13 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { projectsData } from "../../data/projects";
 import "./Projects.css";
 
@@ -11,20 +19,30 @@ const Projects = () => {
 
         <div className="projects-grid">
           {projectsData.map((project) => (
-            <div key={project.id} className="project-card">
-              <div className="project-header">
-                <div className="project-icon">{project.icon}</div>
-              </div>
-              <h3 className="project-title">{project.title}</h3>
-              <p className="project-description">{project.description}</p>
-              <div className="project-tech">
-                {project.technologies.map((tech, index) => (
-                  <Badge key={index} variant="outline">
-                    {tech}
-                  </Badge>
-                ))}
-              </div>
-              <div className="project-links">
+            <Card key={project.id} className="gap-4 bg-card">
+              <CardHeader className="gap-4">
+                <div className="flex size-[35px] items-center justify-center border text-base">
+                  {project.icon}
+                </div>
+                <CardTitle>
+                  <h3 className="m-0 text-[1.1rem] font-bold tracking-[-0.01em]">
+                    {project.title}
+                  </h3>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="gap-4">
+                <CardDescription className="text-(length:--fs-base) leading-relaxed">
+                  {project.description}
+                </CardDescription>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech, index) => (
+                    <Badge key={index} variant="outline">
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter className="flex-wrap gap-3">
                 <Button
                   asChild
                   variant="link"
@@ -51,8 +69,8 @@ const Projects = () => {
                     📋 View Code
                   </a>
                 </Button>
-              </div>
-            </div>
+              </CardFooter>
+            </Card>
           ))}
         </div>
       </div>
