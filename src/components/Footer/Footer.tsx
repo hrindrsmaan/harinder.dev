@@ -1,3 +1,4 @@
+import { Separator } from "@/components/ui/separator";
 import "./Footer.css";
 
 const Footer = () => {
@@ -69,6 +70,7 @@ const Footer = () => {
           </div>
         </div>
 
+        <Separator />
         <div className="footer-bottom">
           <p>
             &copy; {currentYear} Harinder Singh. Crafted with passion in
