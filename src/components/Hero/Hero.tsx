@@ -12,7 +12,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="flex min-h-[60vh] items-center justify-center pt-[60px] max-md:min-h-auto max-md:px-4 max-md:pt-20 max-md:pb-8"
+      className="pt-20 pb-4 max-md:px-4 max-md:pb-2"
     >
       <div className="mx-auto max-w-(--max-width) px-8 max-md:px-4">
         <div className="max-w-(--max-width) text-center">
