@@ -1,5 +1,4 @@
 import { useState, useEffect, useId } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FieldError } from "@/components/ui/field";
 import {
@@ -9,7 +8,6 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 
 const HASH_KEY = "job-tracker-password-hash";
 
@@ -34,7 +32,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   const [storedHash, setStoredHash] = useState<string | null>(null);
   const [error, setError] = useState("");
   const passwordId = useId();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const hash = localStorage.getItem(HASH_KEY);
@@ -64,16 +61,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
       setError("Incorrect password");
     }
     setPassword("");
-  };
-
-  // Same two-step as the header: leave the route, then scroll once home mounts.
-  const goToContact = () => {
-    navigate("/");
-    setTimeout(() => {
-      document
-        .getElementById("contact")
-        ?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
   };
 
   if (isAuthenticated) {
@@ -138,19 +125,6 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
             {storedHash ? "Continue" : "Set password"}
           </Button>
         </form>
-
-        <Separator className="mt-9" />
-
-        <p className="mt-8 mb-0 font-sans text-[0.875rem] text-muted-foreground">
-          Need access?{" "}
-          <Button
-            variant="link"
-            className="h-auto p-0 align-baseline text-[0.875rem] font-normal text-foreground underline underline-offset-4 hover:text-highlight"
-            onClick={goToContact}
-          >
-            Get in touch
-          </Button>
-        </p>
       </div>
     </section>
   );
