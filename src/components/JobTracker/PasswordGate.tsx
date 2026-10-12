@@ -91,7 +91,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
           Restricted
         </p>
 
-        <h1 className="mb-3 text-[clamp(1.75rem,6vw,2.25rem)]">Job Tracker</h1>
+        <h1 className="mb-3 text-[clamp(1.625rem,6vw,2.125rem)]">Job Tracker</h1>
 
         <p className="mb-8 font-sans text-(length:--fs-base) text-muted-foreground max-md:mb-7">
           {storedHash
@@ -103,7 +103,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
           onSubmit={storedHash ? handleLogin : handleSetup}
           className="flex flex-col gap-2"
         >
-          <Label htmlFor={passwordId} className="mb-2 text-[1rem]">
+          <Label htmlFor={passwordId} className="mb-2 text-[0.875rem]">
             Password
           </Label>
 
@@ -116,11 +116,11 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
               placeholder={storedHash ? "" : "Choose a password"}
               aria-invalid={!!error}
               autoFocus
-              className="h-full px-4 text-[1rem] md:text-[1rem]"
+              className="h-full px-4 text-[0.875rem] md:text-[0.875rem]"
             />
             <InputGroupAddon align="inline-end" className="pr-2">
               <InputGroupButton
-                className="h-8 px-2 text-[1rem] font-normal text-muted-foreground hover:text-foreground"
+                className="h-8 px-2 text-[0.875rem] font-normal text-muted-foreground hover:text-foreground"
                 aria-label={showPassword ? "Hide password" : "Show password"}
                 onClick={() => setShowPassword(!showPassword)}
               >
@@ -133,7 +133,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
           <Button
             type="submit"
-            className="mt-3 h-14 w-full rounded-[var(--control-radius)] text-[1rem]"
+            className="mt-3 h-14 w-full rounded-[var(--control-radius)] text-[0.875rem]"
           >
             {storedHash ? "Continue" : "Set password"}
           </Button>
@@ -141,11 +141,11 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
         <Separator className="mt-9" />
 
-        <p className="mt-8 mb-0 font-sans text-[1rem] text-muted-foreground">
+        <p className="mt-8 mb-0 font-sans text-[0.875rem] text-muted-foreground">
           Need access?{" "}
           <Button
             variant="link"
-            className="h-auto p-0 align-baseline text-[1rem] font-normal text-foreground underline underline-offset-4 hover:text-highlight"
+            className="h-auto p-0 align-baseline text-[0.875rem] font-normal text-foreground underline underline-offset-4 hover:text-highlight"
             onClick={goToContact}
           >
             Get in touch

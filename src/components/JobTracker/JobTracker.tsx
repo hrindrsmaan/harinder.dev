@@ -265,10 +265,10 @@ const JobTracker = () => {
     <section className="min-h-screen bg-background px-4 pt-20 pb-8">
       <div className="mx-auto max-w-(--max-width)">
         <div className="mb-8 text-center">
-          <h1 className="mb-2 inline-block border-b pb-2 text-[1.8rem] text-foreground max-[701px]:text-[1.4rem]">
+          <h1 className="mb-2 inline-block border-b pb-2 text-[1.675rem] text-foreground max-[701px]:text-[1.275rem]">
             Job Tracker
           </h1>
-          <p className="text-[1rem] text-muted-foreground">
+          <p className="text-[0.875rem] text-muted-foreground">
             Track your job search progress and applications
           </p>
         </div>
@@ -281,10 +281,10 @@ const JobTracker = () => {
                   <Icon size={20} />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[1.3rem] leading-[1.2] font-bold text-foreground">
+                  <span className="text-[1.175rem] leading-[1.2] font-bold text-foreground">
                     {value}
                   </span>
-                  <span className="text-[0.75rem] text-muted-foreground">
+                  <span className="text-[0.625rem] text-muted-foreground">
                     {label}
                   </span>
                 </div>
@@ -296,7 +296,7 @@ const JobTracker = () => {
         {stats.interview.length > 0 && (
           <Card size="sm" className="mb-6 bg-secondary">
             <CardContent>
-              <div className="mb-2 text-[0.8rem] tracking-[0.5px] text-muted-foreground uppercase">Interviewing With</div>
+              <div className="mb-2 text-[0.675rem] tracking-[0.5px] text-muted-foreground uppercase">Interviewing With</div>
               <div className="flex flex-wrap gap-2">
                 {stats.interview.map((job) => (
                   <Badge key={job.id} variant="outline">
@@ -455,7 +455,7 @@ const JobTracker = () => {
               <Card key={job.id} size="sm" className="gap-3 bg-secondary">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-3">
-                    <h3 className="m-0 text-base font-bold">{job.company}</h3>
+                    <h3 className="m-0 text-[0.875rem] leading-6 font-bold">{job.company}</h3>
                     <Badge
                       variant="outline"
                       className={cn(
@@ -509,11 +509,11 @@ const JobTracker = () => {
                 </CardHeader>
 
                 <CardContent>
-                  <div className="flex items-center gap-2 text-[0.85rem] text-muted-foreground">
+                  <div className="flex items-center gap-2 text-[0.725rem] text-muted-foreground">
                     <Calendar size={13} />
                     <span>{formatDate(job.dateApplied)}</span>
                   </div>
-                  {job.notes && <p className="m-0 text-[0.9rem] leading-[1.5] text-foreground">{job.notes}</p>}
+                  {job.notes && <p className="m-0 text-[0.775rem] leading-[1.5] text-foreground">{job.notes}</p>}
                 </CardContent>
 
                 <CardFooter className="border-t pt-3">

@@ -21,10 +21,10 @@ Static single-page portfolio: React 19 + TypeScript + Vite, no backend, no data 
 
 `src/App.tsx` is the whole app shell: `Header` + `<Routes>` + `Footer`. Two routes:
 
-- `/` — the portfolio, composed of section components (`Hero`, `Experience`, `Education`, `Projects`, `Contact`) rendered in sequence
+- `/` — the portfolio, composed of section components (`Hero`, `Experience`, `Education`) rendered in sequence; `#contact` is the footer
 - `/job-tracker` — `JobTrackerPage` (= `PasswordGate` wrapping `JobTracker`)
 
-**Content lives in `src/data/`, not in components.** `portfolio.ts` (bio, socials, experience, education) and `projects.ts` are plain exported objects/arrays that the section components map over. Copy edits, a new job, or a new project belong there.
+**Content lives in `src/data/`, not in components.** `portfolio.ts` (bio, socials, experience, education) holds plain exported objects/arrays that the section components map over. Copy edits or a new job belong there.
 
 **Adding a route requires three edits, not one:** the `<Route>` in `App.tsx`, the `switch` in `src/hooks/useCanonicalUrl.ts` (otherwise the page canonicalizes to the site root), and `sitemap.xml`.
 

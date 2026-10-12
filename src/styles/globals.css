@@ -52,9 +52,11 @@
   --status-offer: #047857;
   --status-rejected: #dc2626;
 
+  --status-available: #3fa34d; /* Hero "available" dot */
+
   /* Font sizes. Not --text-*: that namespace belongs to Tailwind. */
-  --fs-base: 1.125rem; /* 18px - body copy */
-  --fs-xs: 0.8125rem; /* 13px - kickers/meta */
+  --fs-base: 1rem; /* 16px - body copy */
+  --fs-xs: 0.6875rem; /* 11px - kickers/meta */
 
   /* Max widths */
   --max-width: 1200px;
@@ -86,6 +88,7 @@
   --color-status-interview: var(--status-interview);
   --color-status-offer: var(--status-offer);
   --color-status-rejected: var(--status-rejected);
+  --color-status-available: var(--status-available);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
