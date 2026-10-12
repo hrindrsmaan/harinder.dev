@@ -14,12 +14,12 @@ function App() {
     <Router>
       <CanonicalUrlManager />
       <div>
-        <Header />
         <Routes>
           <Route
             path="/"
             element={
               <>
+                <Header />
                 <Hero />
                 <Experience />
                 <Education />

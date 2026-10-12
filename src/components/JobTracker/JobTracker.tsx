@@ -1,16 +1,5 @@
-import { useState, useEffect, useId } from "react";
-import {
-  Briefcase,
-  Plus,
-  Trash2,
-  Edit2,
-  Check,
-  X,
-  Users,
-  Gift,
-  Filter,
-  Calendar,
-} from "lucide-react";
+import { useState, useEffect, useId, useMemo } from "react";
+import { Plus, X, Search, Pencil, Trash2 } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,24 +11,15 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Empty,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-} from "@/components/ui/empty";
 import { Field, FieldLabel } from "@/components/ui/field";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -47,7 +27,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/lib/supabase";
 import { cn } from "@/lib/utils";
 
@@ -60,23 +39,6 @@ interface Job {
   notes: string;
   dateApplied: string;
 }
-
-// Full class strings so Tailwind can detect them; colors are --status-* tokens
-const statusConfig: Record<JobStatus, { label: string; className: string }> = {
-  applied: {
-    label: "Applied",
-    className: "bg-status-applied/10 text-status-applied",
-  },
-  interview: {
-    label: "Interview",
-    className: "bg-status-interview/10 text-status-interview",
-  },
-  offer: { label: "Offer", className: "bg-status-offer/10 text-status-offer" },
-  rejected: {
-    label: "Rejected",
-    className: "bg-status-rejected/10 text-status-rejected",
-  },
-};
 
 // Shape of a row in the Supabase `jobs` table (snake_case columns)
 interface JobRow {
@@ -104,6 +66,48 @@ const formatDate = (date: string) =>
     year: "numeric",
   });
 
+const statusConfig: Record<
+  JobStatus,
+  {
+    label: string;
+    pillClass: string;
+    barClass: string;
+    dotClass: string;
+    filterLabel: string;
+  }
+> = {
+  applied: {
+    label: "Applied",
+    pillClass: "bg-status-applied/10 text-status-applied",
+    barClass: "bg-status-applied",
+    dotClass: "bg-status-applied",
+    filterLabel: "Applied",
+  },
+  interview: {
+    label: "Interview",
+    pillClass: "bg-status-interview/10 text-status-interview",
+    barClass: "bg-status-interview",
+    dotClass: "bg-status-interview",
+    filterLabel: "Interview",
+  },
+  offer: {
+    label: "Offer",
+    pillClass: "bg-status-offer/10 text-status-offer",
+    barClass: "bg-status-offer",
+    dotClass: "bg-status-offer",
+    filterLabel: "Offer",
+  },
+  rejected: {
+    label: "Rejected",
+    pillClass: "bg-status-rejected/10 text-status-rejected",
+    barClass: "bg-status-rejected",
+    dotClass: "bg-status-rejected",
+    filterLabel: "Rejected",
+  },
+};
+
+type StatusFilter = JobStatus | "all";
+
 const JobTracker = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
@@ -112,7 +116,8 @@ const JobTracker = () => {
   const [saving, setSaving] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [filterStatus, setFilterStatus] = useState<JobStatus | "all">("all");
+  const [filterStatus, setFilterStatus] = useState<StatusFilter>("all");
+  const [search, setSearch] = useState("");
   const fieldId = useId();
   const [form, setForm] = useState<Partial<Job>>({
     company: "",
@@ -242,290 +247,234 @@ const JobTracker = () => {
     setActionError(null);
   };
 
-  const filteredJobs =
-    filterStatus === "all"
-      ? jobs
-      : jobs.filter((job) => job.status === filterStatus);
+  const stats = useMemo(
+    () => ({
+      total: jobs.length,
+      applied: jobs.filter((j) => j.status === "applied"),
+      interview: jobs.filter((j) => j.status === "interview"),
+      offer: jobs.filter((j) => j.status === "offer"),
+      rejected: jobs.filter((j) => j.status === "rejected"),
+    }),
+    [jobs]
+  );
 
-  const stats = {
-    total: jobs.length,
-    interview: jobs.filter((j) => j.status === "interview"),
-    offer: jobs.filter((j) => j.status === "offer").length,
-    rejected: jobs.filter((j) => j.status === "rejected").length,
-  };
+  const filteredJobs = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    return jobs.filter((job) => {
+      if (filterStatus !== "all" && job.status !== filterStatus) return false;
+      if (
+        q &&
+        !job.company.toLowerCase().includes(q) &&
+        !job.notes.toLowerCase().includes(q)
+      ) {
+        return false;
+      }
+      return true;
+    });
+  }, [jobs, filterStatus, search]);
 
   const statCards = [
-    { label: "Total Applied", value: stats.total, Icon: Briefcase },
-    { label: "Interviews", value: stats.interview.length, Icon: Users },
-    { label: "Offers", value: stats.offer, Icon: Gift },
-    { label: "Rejected", value: stats.rejected, Icon: X },
+    {
+      label: "Total applied",
+      value: stats.total,
+      sub:
+        stats.total > 0
+          ? `${stats.applied.length} awaiting response`
+          : "No applications yet",
+      dotClass: "bg-foreground",
+    },
+    {
+      label: "Interviewing",
+      value: stats.interview.length,
+      sub:
+        stats.interview.length > 0
+          ? stats.interview.map((j) => j.company).join(", ")
+          : "—",
+      dotClass: "bg-status-interview",
+    },
+    {
+      label: "Offers",
+      value: stats.offer.length,
+      sub:
+        stats.offer.length > 0
+          ? stats.offer.map((j) => j.company).join(", ")
+          : "—",
+      dotClass: "bg-status-offer",
+    },
+    {
+      label: "Rejected",
+      value: stats.rejected.length,
+      sub:
+        stats.total > 0
+          ? `${Math.round((stats.rejected.length / stats.total) * 100)}% of total`
+          : "—",
+      dotClass: "bg-status-rejected",
+    },
   ];
 
+  const filterTabs: { key: StatusFilter; label: string }[] = [
+    { key: "all", label: "All" },
+    { key: "applied", label: statusConfig.applied.filterLabel },
+    { key: "interview", label: statusConfig.interview.filterLabel },
+    { key: "offer", label: statusConfig.offer.filterLabel },
+    { key: "rejected", label: statusConfig.rejected.filterLabel },
+  ];
+
+  const tabCount = (key: StatusFilter) =>
+    key === "all" ? jobs.length : jobs.filter((j) => j.status === key).length;
+
   return (
-    <section className="min-h-screen bg-background px-4 pt-20 pb-8">
-      <div className="mx-auto max-w-(--max-width)">
-        <div className="mb-8 text-center">
-          <h1 className="mb-2 inline-block border-b pb-2 text-[1.675rem] text-foreground max-[701px]:text-[1.275rem]">
-            Job Tracker
-          </h1>
-          <p className="text-[0.875rem] text-muted-foreground">
-            Track your job search progress and applications
-          </p>
-        </div>
-
-        <div className="mb-6 grid grid-cols-4 gap-4 max-[701px]:grid-cols-2 max-[401px]:grid-cols-1">
-          {statCards.map(({ label, value, Icon }) => (
-            <Card key={label} size="sm" className="bg-secondary">
-              <CardContent className="flex flex-row items-center gap-3">
-                <div className="flex size-9 items-center justify-center border text-foreground">
-                  <Icon size={20} />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[1.175rem] leading-[1.2] font-bold text-foreground">
-                    {value}
-                  </span>
-                  <span className="text-[0.625rem] text-muted-foreground">
-                    {label}
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {stats.interview.length > 0 && (
-          <Card size="sm" className="mb-6 bg-secondary">
-            <CardContent>
-              <div className="mb-2 text-[0.675rem] tracking-[0.5px] text-muted-foreground uppercase">Interviewing With</div>
-              <div className="flex flex-wrap gap-2">
-                {stats.interview.map((job) => (
-                  <Badge key={job.id} variant="outline">
-                    {job.company}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-4 max-[401px]:flex-col max-[401px]:items-stretch">
+    <section className="min-h-screen bg-background">
+      <div className="mx-auto max-w-(--max-width) px-8 pt-10 pb-12 max-md:px-4 max-md:pt-6 max-md:pb-8">
+        {/* Title row */}
+        <div className="mb-8 flex items-end justify-between gap-6 max-[701px]:flex-col max-[701px]:items-start max-[701px]:gap-4">
+          <div>
+            <h1 className="mb-2 text-[2.5rem] leading-none max-[701px]:text-[2rem]">
+              Applications
+            </h1>
+            <p className="text-[0.95rem] text-muted-foreground">
+              Track every role from first application to final decision.
+            </p>
+          </div>
           <Button
-            variant="outline"
-            className="border-border-strong"
             onClick={() => {
               resetForm();
               setShowForm(!showForm);
             }}
+            className="h-10 px-4 font-medium"
           >
             {showForm ? <X /> : <Plus />}
-            {showForm ? "Cancel" : "Add Job"}
+            {showForm ? "Cancel" : "Add application"}
           </Button>
+        </div>
 
-          <div className="flex items-center gap-2 text-muted-foreground max-[401px]:justify-center">
-            <Filter size={16} />
-            <Select
-              value={filterStatus}
-              onValueChange={(value) =>
-                setFilterStatus(value as JobStatus | "all")
-              }
-            >
-              <SelectTrigger
-                aria-label="Filter by status"
-                className="bg-secondary text-foreground"
+        {/* Stats card */}
+        <div className="mb-8 border border-border">
+          <div className="grid grid-cols-4 divide-x divide-border max-[701px]:grid-cols-2 max-[701px]:divide-x-0">
+            {statCards.map((card, i) => (
+              <div
+                key={card.label}
+                className={cn(
+                  "p-5 max-[701px]:p-4",
+                  // Mobile: vertical divider on odd-positioned cells of the
+                  // first column (and 3rd of 4) so the 2x2 grid has hairlines
+                  // between cells.
+                  i % 2 === 0 &&
+                    i !== statCards.length - 1 &&
+                    "max-[701px]:border-r max-[701px]:border-border",
+                  // Mobile: horizontal divider under the first row.
+                  i < 2 && "max-[701px]:border-b max-[701px]:border-border"
+                )}
               >
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Jobs</SelectItem>
-                {Object.entries(statusConfig).map(([key, config]) => (
-                  <SelectItem key={key} value={key}>
-                    {config.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+                <div className="mb-3 flex items-center gap-2 text-[0.7rem] tracking-[0.5px] text-muted-foreground uppercase">
+                  <span
+                    aria-hidden="true"
+                    className={cn("size-2 rounded-full", card.dotClass)}
+                  />
+                  {card.label}
+                </div>
+                <div className="mb-1 text-[2rem] leading-none font-bold tracking-tight text-foreground">
+                  {card.value}
+                </div>
+                <div className="text-[0.8rem] text-muted-foreground">
+                  {card.sub}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center gap-4 border-t border-border px-5 py-4">
+            <span className="shrink-0 text-[0.7rem] tracking-[0.5px] text-muted-foreground uppercase">
+              Pipeline
+            </span>
+            <div className="flex h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
+              {stats.total > 0 &&
+                (Object.keys(statusConfig) as JobStatus[]).map((s) => {
+                  const count = stats[s].length;
+                  if (count === 0) return null;
+                  return (
+                    <div
+                      key={s}
+                      className={statusConfig[s].barClass}
+                      style={{ width: `${(count / stats.total) * 100}%` }}
+                      aria-label={`${count} ${statusConfig[s].label}`}
+                    />
+                  );
+                })}
+            </div>
           </div>
         </div>
 
-        {showForm && (
-          <Card className="mb-6 bg-secondary">
-            <CardContent>
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4 grid grid-cols-3 gap-4 max-[701px]:grid-cols-1">
-                  <Field className="gap-1.5">
-                    <FieldLabel htmlFor={`${fieldId}-company`}>Company</FieldLabel>
-                    <Input
-                      id={`${fieldId}-company`}
-                      type="text"
-                      value={form.company}
-                      onChange={(e) => setForm({ ...form, company: e.target.value })}
-                      placeholder="Company name"
-                      required
-                    />
-                  </Field>
-                  <Field className="gap-1.5">
-                    <FieldLabel htmlFor={`${fieldId}-status`}>Status</FieldLabel>
-                    <Select
-                      value={form.status}
-                      onValueChange={(value) =>
-                        setForm({ ...form, status: value as JobStatus })
-                      }
-                    >
-                      <SelectTrigger id={`${fieldId}-status`} className="w-full">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Object.entries(statusConfig).map(([key, config]) => (
-                          <SelectItem key={key} value={key}>
-                            {config.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                  <Field className="gap-1.5">
-                    <FieldLabel htmlFor={`${fieldId}-date`}>Date Applied</FieldLabel>
-                    <Input
-                      id={`${fieldId}-date`}
-                      type="date"
-                      value={form.dateApplied}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        const date = new Date(value);
-                        if (!isNaN(date.getTime())) {
-                          setForm({ ...form, dateApplied: value });
-                        }
-                      }}
-                      required
-                    />
-                  </Field>
-                </div>
-                <Field className="gap-1.5">
-                  <FieldLabel htmlFor={`${fieldId}-notes`}>Notes</FieldLabel>
-                  <Textarea
-                    id={`${fieldId}-notes`}
-                    value={form.notes}
-                    onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                    placeholder="Notes..."
-                    rows={3}
-                  />
-                </Field>
-                <div className="flex justify-end">
-                  <Button
-                    type="submit"
-                    variant="outline"
-                    className="border-border-strong"
-                    disabled={saving}
-                  >
-                    <Check />
-                    {editingId ? "Update" : "Add Job"}
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-        )}
+        {/* Filter + search row */}
+        <div className="mb-4 flex items-center justify-between gap-4 max-[701px]:flex-col max-[701px]:items-stretch">
+          <div className="flex border border-border divide-x divide-border max-[701px]:overflow-x-auto">
+            {filterTabs.map(({ key, label }) => {
+              const active = filterStatus === key;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setFilterStatus(key)}
+                  className={cn(
+                    "shrink-0 px-4 py-2 text-[0.85rem] transition-colors",
+                    active
+                      ? "bg-secondary text-foreground"
+                      : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                  )}
+                >
+                  {label} <span className="opacity-60">{tabCount(key)}</span>
+                </button>
+              );
+            })}
+          </div>
+          <InputGroup className="max-w-xs max-[701px]:max-w-none">
+            <InputGroupAddon>
+              <Search />
+            </InputGroupAddon>
+            <InputGroupInput
+              placeholder="Search company or notes"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </InputGroup>
+        </div>
 
         {actionError && (
           <p className="mb-4 text-center text-destructive">{actionError}</p>
         )}
 
-        <div className="flex flex-col gap-4">
-          {loading ? (
-            <p className="text-center text-muted-foreground">Loading jobs…</p>
-          ) : error ? (
-            <p className="text-center text-destructive">
-              Couldn't load jobs: {error}
-            </p>
-          ) : filteredJobs.length === 0 ? (
-            <Empty className="border border-solid bg-secondary p-8">
-              <EmptyHeader>
-                <EmptyMedia>
-                  <Briefcase size={40} />
-                </EmptyMedia>
-                <EmptyDescription>
-                  {filterStatus === "all"
-                    ? "No jobs yet. Click 'Add Job' to start tracking!"
-                    : `No "${statusConfig[filterStatus as JobStatus]?.label}" jobs`}
-                </EmptyDescription>
-              </EmptyHeader>
-            </Empty>
-          ) : (
-            filteredJobs.map((job) => (
-              <Card key={job.id} size="sm" className="gap-3 bg-secondary">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-3">
-                    <h3 className="m-0 text-[0.875rem] leading-6 font-bold">{job.company}</h3>
-                    <Badge
-                      variant="outline"
-                      className={cn(
-                        "uppercase",
-                        statusConfig[job.status].className
-                      )}
-                    >
-                      {statusConfig[job.status].label}
-                    </Badge>
-                  </CardTitle>
-                  <CardAction className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="icon-sm"
-                      aria-label={`Edit ${job.company}`}
-                      onClick={() => handleEdit(job)}
-                    >
-                      <Edit2 />
-                    </Button>
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button
-                          variant="outline"
-                          size="icon-sm"
-                          aria-label={`Delete ${job.company}`}
-                          className="hover:text-destructive"
-                        >
-                          <Trash2 />
-                        </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Delete this job?</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            {job.company} will be removed from your tracker.
-                            This can't be undone.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction
-                            variant="destructive"
-                            onClick={() => handleDelete(job.id)}
-                          >
-                            Delete
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </CardAction>
-                </CardHeader>
-
-                <CardContent>
-                  <div className="flex items-center gap-2 text-[0.725rem] text-muted-foreground">
-                    <Calendar size={13} />
-                    <span>{formatDate(job.dateApplied)}</span>
-                  </div>
-                  {job.notes && <p className="m-0 text-[0.775rem] leading-[1.5] text-foreground">{job.notes}</p>}
-                </CardContent>
-
-                <CardFooter className="border-t pt-3">
+        {/* Form */}
+        {showForm && (
+          <div className="mb-6 border border-border bg-secondary">
+            <form onSubmit={handleSubmit} className="p-5">
+              <div className="mb-4 grid grid-cols-3 gap-4 max-[701px]:grid-cols-1">
+                <Field className="gap-1.5">
+                  <FieldLabel htmlFor={`${fieldId}-company`}>
+                    Company
+                  </FieldLabel>
+                  <Input
+                    id={`${fieldId}-company`}
+                    type="text"
+                    value={form.company}
+                    onChange={(e) =>
+                      setForm({ ...form, company: e.target.value })
+                    }
+                    placeholder="Company name"
+                    required
+                  />
+                </Field>
+                <Field className="gap-1.5">
+                  <FieldLabel htmlFor={`${fieldId}-status`}>
+                    Status
+                  </FieldLabel>
                   <Select
-                    value={job.status}
+                    value={form.status}
                     onValueChange={(value) =>
-                      handleStatusChange(job.id, value as JobStatus)
+                      setForm({ ...form, status: value as JobStatus })
                     }
                   >
                     <SelectTrigger
-                      size="sm"
-                      aria-label={`Status for ${job.company}`}
+                      id={`${fieldId}-status`}
+                      className="w-full"
                     >
                       <SelectValue />
                     </SelectTrigger>
@@ -537,10 +486,199 @@ const JobTracker = () => {
                       ))}
                     </SelectContent>
                   </Select>
-                </CardFooter>
-              </Card>
-            ))
-          )}
+                </Field>
+                <Field className="gap-1.5">
+                  <FieldLabel htmlFor={`${fieldId}-date`}>
+                    Date Applied
+                  </FieldLabel>
+                  <Input
+                    id={`${fieldId}-date`}
+                    type="date"
+                    value={form.dateApplied}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const date = new Date(value);
+                      if (!isNaN(date.getTime())) {
+                        setForm({ ...form, dateApplied: value });
+                      }
+                    }}
+                    required
+                  />
+                </Field>
+              </div>
+              <Field className="mb-4 gap-1.5">
+                <FieldLabel htmlFor={`${fieldId}-notes`}>Notes</FieldLabel>
+                <Textarea
+                  id={`${fieldId}-notes`}
+                  value={form.notes}
+                  onChange={(e) =>
+                    setForm({ ...form, notes: e.target.value })
+                  }
+                  placeholder="Notes..."
+                  rows={3}
+                />
+              </Field>
+              <div className="flex justify-end">
+                <Button type="submit" disabled={saving}>
+                  {editingId ? "Update" : "Add application"}
+                </Button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* Table */}
+        <div className="border border-border">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-border bg-secondary/40 text-[0.7rem] tracking-[0.5px] text-muted-foreground uppercase">
+                  <th className="px-4 py-3 font-medium">Company</th>
+                  <th className="px-4 py-3 font-medium">Status</th>
+                  <th className="px-4 py-3 font-medium">Applied</th>
+                  <th className="px-4 py-3 font-medium">Notes</th>
+                  <th className="px-4 py-3 text-right font-medium">
+                    <span className="sr-only">Actions</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="px-4 py-8 text-center text-muted-foreground"
+                    >
+                      Loading jobs…
+                    </td>
+                  </tr>
+                ) : error ? (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="px-4 py-8 text-center text-destructive"
+                    >
+                      Couldn't load jobs: {error}
+                    </td>
+                  </tr>
+                ) : filteredJobs.length === 0 ? (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="px-4 py-12 text-center text-muted-foreground"
+                    >
+                      {search.trim()
+                        ? "No jobs match your search."
+                        : filterStatus === "all"
+                          ? "No jobs yet. Click 'Add application' to start tracking!"
+                          : `No "${statusConfig[filterStatus as JobStatus].label}" jobs`}
+                    </td>
+                  </tr>
+                ) : (
+                  filteredJobs.map((job) => (
+                    <tr
+                      key={job.id}
+                      className="border-b border-border transition-colors last:border-b-0 hover:bg-secondary/40"
+                    >
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-3">
+                          <div
+                            aria-hidden="true"
+                            className="flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary font-sans text-[0.85rem] font-medium text-foreground"
+                          >
+                            {job.company.charAt(0).toUpperCase()}
+                          </div>
+                          <span className="font-medium text-foreground">
+                            {job.company}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3">
+                        <Select
+                          value={job.status}
+                          onValueChange={(value) =>
+                            handleStatusChange(job.id, value as JobStatus)
+                          }
+                        >
+                          <SelectTrigger
+                            aria-label={`Status for ${job.company}`}
+                            size="sm"
+                            className={cn(
+                              "h-auto w-auto gap-1.5 rounded-full border px-2.5 py-1 text-[0.78rem] font-medium shadow-none",
+                              statusConfig[job.status].pillClass
+                            )}
+                          >
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {Object.entries(statusConfig).map(
+                              ([key, config]) => (
+                                <SelectItem key={key} value={key}>
+                                  {config.label}
+                                </SelectItem>
+                              )
+                            )}
+                          </SelectContent>
+                        </Select>
+                      </td>
+                      <td className="px-4 py-3 text-[0.875rem] whitespace-nowrap text-muted-foreground">
+                        {formatDate(job.dateApplied)}
+                      </td>
+                      <td className="max-w-[300px] px-4 py-3 text-[0.875rem] text-foreground">
+                        {job.notes || (
+                          <span className="text-muted-foreground">—</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center justify-end gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon-sm"
+                            aria-label={`Edit ${job.company}`}
+                            onClick={() => handleEdit(job)}
+                          >
+                            <Pencil />
+                          </Button>
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="icon-sm"
+                                aria-label={`Delete ${job.company}`}
+                                className="hover:text-destructive"
+                              >
+                                <Trash2 />
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                  Delete this job?
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  {job.company} will be removed from your
+                                  tracker. This can't be undone.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                  variant="destructive"
+                                  onClick={() => handleDelete(job.id)}
+                                >
+                                  Delete
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
