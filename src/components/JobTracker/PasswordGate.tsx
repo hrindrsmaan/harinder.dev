@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Lock, Eye, EyeOff } from "lucide-react";
+import { useState, useEffect, useId } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FieldError } from "@/components/ui/field";
 import {
@@ -8,7 +8,8 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 
 const HASH_KEY = "job-tracker-password-hash";
 
@@ -32,6 +33,8 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [storedHash, setStoredHash] = useState<string | null>(null);
   const [error, setError] = useState("");
+  const passwordId = useId();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const hash = localStorage.getItem(HASH_KEY);
@@ -63,56 +66,92 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     setPassword("");
   };
 
+  // Same two-step as the header: leave the route, then scroll once home mounts.
+  const goToContact = () => {
+    navigate("/");
+    setTimeout(() => {
+      document
+        .getElementById("contact")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  };
+
   if (isAuthenticated) {
     return <>{children}</>;
   }
 
   return (
-    <section className="flex min-h-screen items-center justify-center bg-background pt-20 max-[421px]:px-4 max-[421px]:pt-16">
-      <Card className="w-full max-w-[380px] gap-0 bg-secondary p-8 text-center text-(length:--fs-base) max-[421px]:p-6">
-        <div className="mx-auto mb-6 flex size-[72px] items-center justify-center border text-foreground max-[421px]:size-14">
-          <Lock size={48} />
-        </div>
-        <h1 className="mb-2 text-[1.5rem] break-words text-foreground max-[421px]:text-[1.25rem]">
-          Job Tracker
-        </h1>
-        <p className="mb-6 text-muted-foreground">Enter password to access</p>
+    <section className="flex min-h-[calc(100vh-5rem)] items-center justify-center border-b-0 px-8 py-20 max-md:px-4">
+      <div className="w-full max-w-[450px]">
+        <p className="mb-4 flex items-center gap-2.5 font-mono text-(length:--fs-xs) tracking-[0.12em] text-muted-foreground uppercase">
+          <span
+            aria-hidden="true"
+            className="size-2 shrink-0 rounded-full bg-muted-foreground/60"
+          />
+          Restricted
+        </p>
+
+        <h1 className="mb-3 text-[clamp(1.75rem,6vw,2.25rem)]">Job Tracker</h1>
+
+        <p className="mb-8 font-sans text-(length:--fs-base) text-muted-foreground max-md:mb-7">
+          {storedHash
+            ? "This area is private. Enter the password to continue."
+            : "This area is private. Set a password to lock it."}
+        </p>
 
         <form
           onSubmit={storedHash ? handleLogin : handleSetup}
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-2"
         >
-          <InputGroup className="h-11 bg-card">
+          <Label htmlFor={passwordId} className="mb-2 text-[1rem]">
+            Password
+          </Label>
+
+          <InputGroup className="h-14 rounded-[var(--control-radius)] bg-background">
             <InputGroupInput
+              id={passwordId}
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder={storedHash ? "Enter password" : "Set a password"}
-              aria-label="Password"
+              placeholder={storedHash ? "" : "Choose a password"}
               aria-invalid={!!error}
               autoFocus
+              className="h-full px-4 text-[1rem] md:text-[1rem]"
             />
-            <InputGroupAddon align="inline-end">
+            <InputGroupAddon align="inline-end" className="pr-2">
               <InputGroupButton
-                size="icon-xs"
+                className="h-8 px-2 text-[1rem] font-normal text-muted-foreground hover:text-foreground"
                 aria-label={showPassword ? "Hide password" : "Show password"}
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <EyeOff /> : <Eye />}
+                {showPassword ? "Hide" : "Show"}
               </InputGroupButton>
             </InputGroupAddon>
           </InputGroup>
+
           {error && <FieldError>{error}</FieldError>}
+
           <Button
             type="submit"
-            variant="outline"
-            size="lg"
-            className="w-full border-border-strong"
+            className="mt-3 h-14 w-full rounded-[var(--control-radius)] text-[1rem]"
           >
-            {storedHash ? "Unlock" : "Set Password"}
+            {storedHash ? "Continue" : "Set password"}
           </Button>
         </form>
-      </Card>
+
+        <Separator className="mt-9" />
+
+        <p className="mt-8 mb-0 font-sans text-[1rem] text-muted-foreground">
+          Need access?{" "}
+          <Button
+            variant="link"
+            className="h-auto p-0 align-baseline text-[1rem] font-normal text-foreground underline underline-offset-4 hover:text-highlight"
+            onClick={goToContact}
+          >
+            Get in touch
+          </Button>
+        </p>
+      </div>
     </section>
   );
 };

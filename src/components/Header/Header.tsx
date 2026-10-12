@@ -39,7 +39,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-border-strong bg-background">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background">
       <Collapsible open={menuOpen} onOpenChange={setMenuOpen}>
         <nav className="relative mx-auto flex max-w-(--max-width) items-center justify-between px-8 py-4 max-md:p-4">
           <div className="font-sans text-[1.2rem] font-bold tracking-[-0.02em] whitespace-nowrap">harinder.dev</div>
@@ -58,7 +58,7 @@ const Header = () => {
               <li key={item.id}>
                 <Button
                   variant="link"
-                  className="h-auto p-0 text-base font-normal text-foreground underline underline-offset-auto hover:text-highlight"
+                  className="h-auto p-0 text-base font-normal text-muted-foreground no-underline hover:text-highlight hover:no-underline"
                   onClick={() => handleNavigation(item.id)}
                 >
                   {item.label}
