@@ -42,6 +42,10 @@
   --highlight: #cc0000; /* Red - kickers/accents */
   --border-strong: #0d0d0d; /* Rules that read as structure */
 
+  /* The job-tracker gate is the one surface that rounds its controls.
+     --radius stays 0 so the rest of the site keeps its square edges. */
+  --control-radius: 8px;
+
   /* Job tracker status colors */
   --status-applied: #1d4ed8;
   --status-interview: #b45309;
