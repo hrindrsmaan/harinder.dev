@@ -1,20 +1,19 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+const BASE_URL = "https://harinder.dev";
+
+// Every route needs an entry here, or it canonicalizes to the site root.
+const canonicalUrls: Record<string, string> = {
+  "/": BASE_URL,
+  "/job-tracker": `${BASE_URL}/job-tracker`,
+};
+
 export const useCanonicalUrl = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const baseUrl = "https://harinder.dev";
-    let canonicalUrl: string;
-
-    // Set canonical URL based on current route
-    switch (location.pathname) {
-      case "/":
-      default:
-        canonicalUrl = baseUrl;
-        break;
-    }
+    const canonicalUrl = canonicalUrls[location.pathname] ?? BASE_URL;
 
     // Remove existing canonical link if present
     const existingCanonical = document.querySelector('link[rel="canonical"]');
