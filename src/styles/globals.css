@@ -40,7 +40,6 @@
   --radius: 0px; /* Editorial look: square corners everywhere */
 
   --highlight: #cc0000; /* Red - kickers/accents */
-  --border-strong: #0d0d0d; /* Rules that read as structure */
 
   /* The job-tracker gate is the one surface that rounds its controls.
      --radius stays 0 so the rest of the site keeps its square edges. */
@@ -83,7 +82,6 @@
   --color-foreground: var(--foreground);
   --color-background: var(--background);
   --color-highlight: var(--highlight);
-  --color-border-strong: var(--border-strong);
   --color-status-applied: var(--status-applied);
   --color-status-interview: var(--status-interview);
   --color-status-offer: var(--status-offer);
