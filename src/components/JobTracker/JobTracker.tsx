@@ -12,6 +12,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { Field, FieldLabel } from "@/components/ui/field";
 import {
   InputGroup,
@@ -65,6 +70,63 @@ const formatDate = (date: string) =>
     month: "short",
     year: "numeric",
   });
+
+// Notes are free text: one bullet per line. A single-paragraph note is split
+// into sentences instead. Leading "-", "*" or "•" markers are stripped.
+const toNoteItems = (notes: string): string[] => {
+  const lines = notes
+    .split(/\r?\n/)
+    .map((line) => line.replace(/^\s*[-*•]\s*/, "").trim())
+    .filter(Boolean);
+  const items =
+    lines.length === 1 ? lines[0].split(/(?<=[.!?])\s+(?=[A-Z0-9])/) : lines;
+  return items.map((item) => item.trim().replace(/\.$/, "")).filter(Boolean);
+};
+
+const VISIBLE_NOTES = 3;
+
+const NotesList = ({ notes }: { notes: string }) => {
+  const items = toNoteItems(notes);
+  if (items.length === 0) {
+    return <span className="text-muted-foreground">—</span>;
+  }
+
+  const renderItems = (list: string[]) => (
+    <ul className="list-disc space-y-1.5 pl-4 marker:text-muted-foreground">
+      {list.map((item, i) => (
+        <li key={i}>{item}</li>
+      ))}
+    </ul>
+  );
+  const hidden = items.length - VISIBLE_NOTES;
+
+  return (
+    <Collapsible className="group/notes space-y-1.5">
+      {renderItems(items.slice(0, VISIBLE_NOTES))}
+      {hidden > 0 && (
+        <>
+          <CollapsibleContent>
+            {renderItems(items.slice(VISIBLE_NOTES))}
+          </CollapsibleContent>
+          <CollapsibleTrigger asChild>
+            <Button
+              variant="link"
+              size="sm"
+              className="h-auto p-0 pl-4 text-[0.8rem] text-muted-foreground"
+            >
+              <span className="group-data-[state=open]/notes:hidden">
+                Show {hidden} more
+              </span>
+              <span className="hidden group-data-[state=open]/notes:inline">
+                Show less
+              </span>
+            </Button>
+          </CollapsibleTrigger>
+        </>
+      )}
+    </Collapsible>
+  );
+};
 
 const statusConfig: Record<
   JobStatus,
@@ -514,8 +576,8 @@ const JobTracker = () => {
                   onChange={(e) =>
                     setForm({ ...form, notes: e.target.value })
                   }
-                  placeholder="Notes..."
-                  rows={3}
+                  placeholder="One note per line — each line becomes a bullet"
+                  rows={4}
                 />
               </Field>
               <div className="flex justify-end">
@@ -624,10 +686,8 @@ const JobTracker = () => {
                       <td className="px-4 py-3 text-[0.875rem] whitespace-nowrap text-muted-foreground">
                         {formatDate(job.dateApplied)}
                       </td>
-                      <td className="max-w-[300px] px-4 py-3 text-[0.875rem] text-foreground">
-                        {job.notes || (
-                          <span className="text-muted-foreground">—</span>
-                        )}
+                      <td className="max-w-[420px] min-w-[240px] px-4 py-3 text-[0.875rem] text-foreground">
+                        <NotesList notes={job.notes} />
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center justify-end gap-1">
