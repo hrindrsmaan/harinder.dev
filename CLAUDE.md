@@ -26,7 +26,7 @@ Static single-page portfolio: React 19 + TypeScript + Vite, no backend, no data 
 
 **Content lives in `src/data/`, not in components.** `portfolio.ts` (bio, socials, experience, education) holds plain exported objects/arrays that the section components map over. Copy edits or a new job belong there.
 
-**Adding a route requires three edits, not one:** the `<Route>` in `App.tsx`, the `switch` in `src/hooks/useCanonicalUrl.ts` (otherwise the page canonicalizes to the site root), and `sitemap.xml`.
+**Adding a route requires three edits, not one:** the `<Route>` in `App.tsx`, the `canonicalUrls` map in `src/hooks/useCanonicalUrl.ts` (otherwise the page canonicalizes to the site root), and `sitemap.xml`.
 
 ### Component and styling convention
 
@@ -58,7 +58,7 @@ UI is Tailwind CSS v4 + shadcn/ui. There are no component `.css` files and no CS
 
 **Analytics** (`src/utils/analytics.ts`, called from `main.tsx`): fetches the visitor's IP from `api.ipify.org`, and skips injecting the gtag script for one hardcoded IP (the owner's, to avoid self-tracking). It is `async`, so GA loads a network round trip after mount.
 
-**JobTracker**: state is `localStorage` only, key `job-tracker-jobs`. `PasswordGate` is presentation-level privacy, not access control: it stores a non-cryptographic 32-bit hash under `job-tracker-password-hash` and the *first* visitor sets the password. The bundle and the data are fully client-side.
+**JobTracker**: data lives in Supabase (table `jobs`, columns `id`, `company`, `status`, `notes`, `date_applied`); the client is created in `src/lib/supabase.ts` from `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`. Both vars are inlined into the bundle at build time by Vite, so they must be present when the Docker image is built — `Dockerfile` takes them as `ARG`s and `cloudbuild.yaml` passes them as `--build-arg`s from Cloud Build substitutions. `PasswordGate` is still presentation-level privacy, not access control: it stores a non-cryptographic 32-bit hash under `job-tracker-password-hash` in `localStorage` and the *first* visitor sets the password. Real access control on the data lives in Supabase row-level security, not in the gate.
 
 ### SEO files
 
