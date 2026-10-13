@@ -49,7 +49,6 @@ export const educationData = [
     degree: "Bachelor's in Computer Science",
     duration: "2012–2016",
     location: "Pune, India",
-    logo: "A",
     description:
       "Bachelor's in Computer Science emphasizing software engineering fundamentals and systems programming.",
     achievements: [
@@ -65,7 +64,6 @@ export const educationData = [
     degree: "Post Graduation Diploma in Computer Science",
     duration: "2018–2020",
     location: "Toronto, Canada",
-    logo: "L",
     description:
       "Studied advanced computer science topics with a focus on modern web development and software engineering.",
     achievements: [

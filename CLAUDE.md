@@ -36,7 +36,7 @@ UI is Tailwind CSS v4 + shadcn/ui. There are no component `.css` files and no CS
 - Feature components keep the `src/components/<Name>/<Name>.tsx` layout and style layout/typography with Tailwind utilities inline. Don't add `.css` files. Use `cn()` from `@/lib/utils` (re-exported from the `cn` package) for conditional classes. The `@/*` alias points to `src/`.
 - `components.json`: Radix base, `vega` preset, neutral base color, CSS file `src/styles/globals.css`.
 
-**Tokens:** `src/styles/globals.css` is the single source of truth. `:root` holds the shadcn tokens (`--background`, `--primary`, `--muted-foreground`, `--border`, `--ring`…) plus `--highlight` (red accent), `--border-strong`, `--status-*`, `--fs-base`/`--fs-xs` and `--max-width`; fonts and the `md` breakpoint live in `@theme`; `@theme inline` maps tokens to Tailwind colors so utilities like `bg-muted`, `text-highlight`, `border-border-strong` and `bg-status-offer/10` work. **No raw hex outside `globals.css`.** A new color or size belongs in `:root` (and `@theme inline` if it needs a utility), not inline.
+**Tokens:** `src/styles/globals.css` is the single source of truth. `:root` holds the shadcn tokens (`--background`, `--primary`, `--muted-foreground`, `--border`, `--ring`…) plus `--highlight` (red accent), `--status-*`, `--fs-base`/`--fs-xs` and `--max-width`; fonts and the `md` breakpoint live in `@theme`; `@theme inline` maps tokens to Tailwind colors so utilities like `bg-muted`, `text-highlight` and `bg-status-offer/10` work. **No raw hex outside `globals.css`.** A new color or size belongs in `:root` (and `@theme inline` if it needs a utility), not inline.
 
 **Intentional theme choices:**
 - `--radius: 0px` and every `--shadow-*` set to `0 0 #0000` (editorial look: square, flat). Not `none`: Tailwind composes rings and shadows into one `box-shadow` list, and `none` would wipe out card rings and focus rings.
@@ -62,4 +62,4 @@ UI is Tailwind CSS v4 + shadcn/ui. There are no component `.css` files and no CS
 
 ### SEO files
 
-`public/` is the only directory Vite copies to `dist/`. `public/robots.txt` advertises `https://harinder.dev/sitemap.xml`, but `sitemap.xml` sits at the repo root, so **it is not in `dist/` and 404s in production**. Move it to `public/` when touching SEO.
+`public/` is the only directory Vite copies to `dist/`. `robots.txt` and `sitemap.xml` both live in `public/`, so they ship with the build and the sitemap URL advertised in robots.txt resolves.
