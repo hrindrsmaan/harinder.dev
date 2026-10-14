@@ -9,5 +9,10 @@ if (!url || !key) {
   );
 }
 
-// One shared client for the whole app; import it, don't recreate it
-export const supabase = createClient(url, key);
+// One shared client for the whole app; import it, don't recreate it.
+// The app never signs in, so ignore any stored auth session: a stale one
+// (e.g. from another app on the same localhost origin) would run requests
+// as `authenticated` instead of `anon`.
+export const supabase = createClient(url, key, {
+  auth: { persistSession: false, autoRefreshToken: false },
+});
