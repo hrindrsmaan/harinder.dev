@@ -12,9 +12,6 @@ const Education = () => {
       <div className="mx-auto max-w-(--max-width) px-8 max-md:px-4">
         <div className="flex items-baseline justify-between gap-4 border-b pb-5">
           <h2 className="mb-0 text-[clamp(1.625rem,4vw,2.125rem)]">Education</h2>
-          <span className="font-mono text-(length:--fs-xs) text-muted-foreground">
-            {educationData.length} schools
-          </span>
         </div>
 
         <div className="flex flex-col">

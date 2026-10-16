@@ -1,6 +1,4 @@
 export const portfolioData = {
-  role: "Senior Full-Stack Engineer",
-  location: "Toronto",
   name: "Harinder Singh",
   description:
     "8+ years in fintech building customer-facing platforms and GenAI features with React, Next.js, TypeScript, Node.js and Python. I turn user problems and technical bottlenecks into shipped, measurable improvements — and mentor engineers along the way.",
