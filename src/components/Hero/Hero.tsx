@@ -8,14 +8,6 @@ const Hero = () => {
     >
       <div className="mx-auto max-w-(--max-width) px-8 max-md:px-4">
         <div className="max-w-[820px]">
-          <p className="mb-5 flex items-center gap-2.5 font-mono text-(length:--fs-xs) tracking-[0.12em] text-muted-foreground uppercase">
-            <span
-              aria-hidden="true"
-              className="size-2 shrink-0 rounded-full bg-status-available"
-            />
-            {portfolioData.role} · {portfolioData.location}
-          </p>
-
           <h1 className="mb-6 text-[clamp(2.375rem,7vw,4.375rem)] leading-[1.05] tracking-[-0.03em]">
             {portfolioData.name}
           </h1>

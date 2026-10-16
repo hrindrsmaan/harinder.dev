@@ -41,14 +41,14 @@ UI is Tailwind CSS v4 + shadcn/ui. There are no component `.css` files and no CS
 **Intentional theme choices:**
 - `--radius: 0px` and every `--shadow-*` set to `0 0 #0000` (editorial look: square, flat). Not `none`: Tailwind composes rings and shadows into one `box-shadow` list, and `none` would wipe out card rings and focus rings.
 - `--breakpoint-md: 769px`, so `md:`/`max-md:` split at the site's original `max-width: 768px` (768px = iPad portrait stays mobile). The tracker's extra breakpoints use exclusive arbitrary variants: `max-[701px]`, `max-[421px]`, `max-[401px]` mean "≤700/420/400px".
-- Light mode only (the `.dark` variant exists but is never applied). Body text is serif; headings and controls are sans.
+- Light mode only (the `.dark` variant exists but is never applied). One typeface everywhere: Radio Canada (loaded from Google Fonts in `index.html`), black text on a `#f4f4f4` background.
 - The fixed header is `z-40` so shadcn overlays and popovers (`z-50`) render above it.
 
 **Cascade gotchas:**
 - Never define `--text-*` in `:root`. That namespace is Tailwind's font-size scale, and overriding it silently resizes every shadcn component.
 - Global element styles (`a`, `h1`–`h6`, `p`, `section`) live in `@layer base` so utilities can override them. Unlayered CSS beats Tailwind utilities.
 - In Tailwind v4, named sizes like `text-base`/`text-sm` also set line-height. Use arbitrary sizes (`text-[1rem]`) when only the font size should change.
-- Form controls get `line-height: normal` in the base layer; preflight would otherwise inherit the body's 1.6.
+- Form controls get `line-height: normal` in the base layer; preflight would otherwise inherit the body's 1.4.
 
 ### TypeScript state
 
