@@ -6,7 +6,6 @@ const BASE_URL = "https://harinder.dev";
 // Every route needs an entry here, or it canonicalizes to the site root.
 const canonicalUrls: Record<string, string> = {
   "/": BASE_URL,
-  "/job-tracker": `${BASE_URL}/job-tracker`,
 };
 
 export const useCanonicalUrl = () => {

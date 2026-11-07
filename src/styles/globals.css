@@ -38,16 +38,6 @@
 
   --highlight: #cc0000; /* Red - kickers/accents */
 
-  /* The job-tracker gate is the one surface that rounds its controls.
-     --radius stays 0 so the rest of the site keeps its square edges. */
-  --control-radius: 8px;
-
-  /* Job tracker status colors */
-  --status-applied: #1d4ed8;
-  --status-interview: #b45309;
-  --status-offer: #047857;
-  --status-rejected: #9ca3af;
-
   /* Font sizes. Not --text-*: that namespace belongs to Tailwind. */
   --fs-base: 1.125rem; /* 18px - body copy */
   --fs-xs: 0.6875rem; /* 11px - kickers/meta */
@@ -75,10 +65,6 @@
   --color-foreground: var(--foreground);
   --color-background: var(--background);
   --color-highlight: var(--highlight);
-  --color-status-applied: var(--status-applied);
-  --color-status-interview: var(--status-interview);
-  --color-status-offer: var(--status-offer);
-  --color-status-rejected: var(--status-rejected);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
