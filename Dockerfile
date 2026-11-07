@@ -12,12 +12,6 @@ RUN npm ci
 # Build the Vite app
 COPY . .
 
-# Vite inlines VITE_* vars at build time, so they must be passed as build args
-ARG VITE_SUPABASE_URL
-ARG VITE_SUPABASE_PUBLISHABLE_KEY
-ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL \
-    VITE_SUPABASE_PUBLISHABLE_KEY=$VITE_SUPABASE_PUBLISHABLE_KEY
-
 RUN npm run build
 
 # ---------- Runtime stage ----------
