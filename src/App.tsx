@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import Experience from "./components/Experience/Experience";
@@ -25,6 +30,9 @@ function App() {
               </>
             }
           />
+          {/* Unknown paths (e.g. the retired /job-tracker) redirect home
+              instead of rendering a blank page. */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <Footer />
       </div>
